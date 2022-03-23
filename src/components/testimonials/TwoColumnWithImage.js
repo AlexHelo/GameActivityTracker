@@ -8,8 +8,8 @@ import { ReactComponent as QuotesLeftIcon } from "../../images/quotes-l.svg";
 import { ReactComponent as QuotesRightIcon } from "../../images/quotes-r.svg";
 import { ReactComponent as ArrowLeftIcon } from "../../images/arrow-left-2-icon.svg";
 import { ReactComponent as ArrowRightIcon } from "../../images/arrow-right-2-icon.svg";
-import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-4.svg";
-import { ReactComponent as SvgDecoratorBlob2 } from "../../images/svg-decorator-blob-5.svg";
+import { ReactComponent as SvgDecoratorBlob1 } from "../../images/steam3.svg";
+import { ReactComponent as SvgDecoratorBlob2 } from "../../images/spotify1.svg";
 
 import "slick-carousel/slick/slick.css";
 

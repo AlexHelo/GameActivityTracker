@@ -15,3 +15,8 @@
     transform: scale(0);
     /* transform: translateY(-150%); */
 }
+
+:root{
+    background-color: #23272A;
+}
+

@@ -8,7 +8,7 @@ import { SectionDescription } from "components/misc/Typography.js";
 
 import defaultCardImage from "images/shield-icon.svg";
 
-import { ReactComponent as SvgDecoratorBlob3 } from "images/svg-decorator-blob-3.svg";
+import { ReactComponent as SvgDecoratorBlob3 } from "images/steam2.svg";
 
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";

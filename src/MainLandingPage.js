@@ -6,14 +6,17 @@ import Hero from "components/hero/TwoColumnWithVideo.js";
 import Features from "components/features/ThreeColSimple.js";
 import MainFeature from "components/features/TwoColWithButton.js";
 import MainFeature2 from "components/features/TwoColSingleFeatureWithStats2.js";
-import TabGrid from "components/cards/TabCardGrid.js";
-import Testimonial from "components/testimonials/ThreeColumnWithProfileImage.js";
+import TabGrid from "components/cards/TabCardGrid";
+import Testimonial from "components/testimonials/ThreeColumnWithProfileImage";
 import DownloadApp from "components/cta/DownloadApp.js";
 import Footer from "components/footers/FiveColumnWithInputForm.js";
 
 import chefIconImageSrc from "images/chef-icon.svg";
 import celebrationIconImageSrc from "images/celebration-icon.svg";
 import shopIconImageSrc from "images/shop-icon.svg";
+import goku from "images/7.png";
+import doomE from "images/9.jpg"
+import smash from "images/4.jpg"
 
 export default () => {
   const Subheading = tw.span`tracking-wider text-sm font-medium`;
@@ -24,36 +27,35 @@ export default () => {
   return (
     <AnimationRevealPage>
       <Hero
-        heading={<>Delicious & Affordable <HighlightedText>Meals Near You.</HighlightedText></>}
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        imageSrc="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
+        heading={<>Music recommendations based on your <HighlightedText>Gaming Preferences</HighlightedText></>}
+        description="With GameChord it is very easy to find the perfect music for every gaming moment."
+        imageSrc= {goku}
         imageCss={imageCss}
         imageDecoratorBlob={true}
-        primaryButtonText="Order Now"
-        watchVideoButtonText="Meet The Chefs"
+        primaryButtonText="Sign up"
+        watchVideoButtonText="Login"
       />
       <MainFeature
-        subheading={<Subheading>Established Since 2014</Subheading>}
+        subheading={<Subheading>We use APIs to get every recommendation</Subheading>}
         heading={
           <>
-            We've been serving for
-            <wbr /> <HighlightedText>over 5 years.</HighlightedText>
+            We know how difficult is to find your 
+            <wbr /> <HighlightedText>new favorite song.</HighlightedText>
           </>
         }
         description={
           <Description>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            In order to find and get your every taste of your gaming needs, we use the <HighlightedText>Steam API</HighlightedText> to know your gaming hobbies and the games you enjoyed the most.
             <br />
             <br />
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            And in order to show you and see if you like those recommendations we use the <HighlightedText>Spotify API</HighlightedText> so you can play along and add them to your playlist
           </Description>
         }
         buttonRounded={false}
         textOnLeft={false}
-        primaryButtonText="Latest Offers"
+        primaryButtonText="About us"
         imageSrc={
-          "https://images.unsplash.com/photo-1460306855393-0410f61241c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
+          doomE
         }
         imageCss={imageCss}
         imageDecoratorBlob={true}
@@ -63,61 +65,38 @@ export default () => {
       <TabGrid
         heading={
           <>
-            Checkout our <HighlightedText>menu.</HighlightedText>
+            Check our <HighlightedText>recommendations.</HighlightedText>
           </>
         }
-      />
-      <Features
-        heading={
-          <>
-            Amazing <HighlightedText>Services.</HighlightedText>
-          </>
-        }
-        cards={[
-          {
-            imageSrc: shopIconImageSrc,
-            title: "230+ Locations",
-            description: "Lorem ipsum donor amet siti ceali placeholder text",
-            url: "https://google.com"
-          },
-          {
-            imageSrc: chefIconImageSrc,
-            title: "Professional Chefs",
-            description: "Lorem ipsum donor amet siti ceali placeholder text",
-            url: "https://timerse.com"
-          },
-          {
-            imageSrc: celebrationIconImageSrc,
-            title: "Birthday Catering",
-            description: "Lorem ipsum donor amet siti ceali placeholder text",
-            url: "https://reddit.com"
-          }
-        ]}
 
-        imageContainerCss={tw`p-2!`}
-        imageCss={tw`w-20! h-20!`}
       />
       <MainFeature2
-        subheading={<Subheading>A Reputed Brand</Subheading>}
-        heading={<>Why <HighlightedText>Choose Us ?</HighlightedText></>}
+        subheading={<Subheading>An ever growing community</Subheading>}
+        heading={<>Why are we <HighlightedText>your best option?</HighlightedText></>}
+        description = {
+        <Description>
+          We use an algorithm that finds songs related to your <HighlightedText>player profile.</HighlightedText>
+          <br></br>
+          To do this we have to know what <HighlightedText>type of gamer</HighlightedText> you are and what games you are most looking to play.
+        </Description>}
         statistics={[
           {
-            key: "Orders",
+            key: "Hours played",
             value: "94000+",
           },
           {
-            key: "Customers",
-            value: "11000+"
+            key: "Players",
+            value: "1100+"
           },
           {
-            key: "Chefs",
-            value: "1500+"
+            key: "Recomendations",
+            value: "15000+"
           }
         ]}
-        primaryButtonText="Order Now"
+        primaryButtonText="Sign up"
         primaryButtonUrl="https://order.now.com"
         imageInsideDiv={false}
-        imageSrc="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEzNzI2fQ&auto=format&fit=crop&w=768&q=80"
+        imageSrc= {smash}
         imageCss={Object.assign(tw`bg-cover`, imageCss)}
         imageContainerCss={tw`md:w-1/2 h-auto`}
         imageDecoratorBlob={true}
@@ -126,10 +105,7 @@ export default () => {
       />
       <Testimonial
         subheading=""
-        heading={<>Customers <HighlightedText>Love Us.</HighlightedText></>}
-      />
-      <DownloadApp
-        text={<>People around you are ordering delicious meals using the <HighlightedTextInverse>Treact App.</HighlightedTextInverse></>}
+        heading={<>Gamers <HighlightedText>Love Us.</HighlightedText></>}
       />
       <Footer />
     </AnimationRevealPage>

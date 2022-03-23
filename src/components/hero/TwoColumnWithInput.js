@@ -6,7 +6,7 @@ import { css } from "styled-components/macro";
 
 import Header from "../headers/light.js";
 
-import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
+import { ReactComponent as SvgDecoratorBlob1 } from "../../images/steam1.svg";
 import DesignIllustration from "../../images/design-illustration-2.svg";
 import CustomersLogoStripImage from "../../images/customers-logo-strip.png";
 
