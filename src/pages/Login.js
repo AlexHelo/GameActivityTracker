@@ -72,7 +72,7 @@ export default ({
   submitButtonText = "Sign In",
   SubmitButtonIcon = LoginIcon,
   forgotPasswordUrl = "#",
-  signupUrl = "#",
+  signupUrl = "/Signup",
 
 }) => (
   <AnimationRevealPage>
