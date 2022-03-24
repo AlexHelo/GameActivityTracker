@@ -95,7 +95,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
  import LoginPage from "pages/Login.js";
  import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
-// import AboutUsPage from "pages/AboutUs.js";
+ import AboutUsPage from "pages/AboutUs.js";
 // import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
@@ -104,6 +104,8 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";
 import ThankYouPage from "ThankYouPage.js";
+import userController from "controllers/userController"
+import { User_create_normal_User } from "controllers/userController";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -121,8 +123,11 @@ export default function App() {
         <Route path="/components/:type/:name">
           <ComponentRenderer />
         </Route>
-        <Route path="/thank-you">
-          <ThankYouPage />
+        <Route path="/user/create">
+          <User_create_normal_User/>
+        </Route>
+        <Route path="/About_us">
+          <AboutUsPage />
         </Route>
         <Route path="/Signup">
           <SignupPage />
