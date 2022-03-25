@@ -10,6 +10,8 @@ import { ReactComponent as StarIcon } from "images/star-icon.svg";
 import { ReactComponent as SvgDecoratorBlob1 } from "images/spotify1.svg";
 import { ReactComponent as SvgDecoratorBlob2 } from "images/spotify3.svg";
 
+import doomE from "images/9.jpg"
+
 const HeaderRow = tw.div`flex justify-between items-center flex-col xl:flex-row`;
 const Header = tw(SectionHeading)``;
 const TabsControl = tw.div`flex flex-wrap bg-gray-200 px-2 py-2 rounded leading-none mt-12 xl:mt-0`;
@@ -61,17 +63,17 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 export default ({
   heading = "Checkout the Menu",
   tabs = {
-    Starters: [
+    Top: [
       {
         imageSrc:
-          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80",
-        title: "Veg Mixer",
-        content: "Tomato Salad & Carrot",
-        price: "$5.99",
+          doomE,
+        title: "Rip & Tear",
+        content: "Mick Gordon",
+        price: "",
         rating: "5.0",
-        reviews: "87",
-        url: "#"
-      },
+        reviews: "100",
+        url: "https://open.spotify.com/track/5soMJpcVhSrGrB4prvPL6P?si=AQTxdEJ-RQKQupQAdioo1A&utm_source=copy-link"
+      }/*,
       {
         imageSrc:
           "https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80",
@@ -142,10 +144,11 @@ export default ({
         reviews: "26",
         url: "#"
       }
+      */
     ],
-    Main: getRandomCards(),
-    Soup: getRandomCards(),
-    Desserts: getRandomCards()
+    Calm: getRandomCards(),
+    Shooters: getRandomCards(),
+    RPG: getRandomCards()
   }
 }) => {
   /*
@@ -191,7 +194,14 @@ export default ({
           >
             {tabs[tabKey].map((card, index) => (
               <CardContainer key={index}>
-                <Card className="group" href={card.url} initial="rest" whileHover="hover" animate="rest">
+                <Card 
+                  className="group" 
+                  href={card.url}
+                  target="_blank"
+                  initial="rest" 
+                  whileHover="hover" 
+                  animate="rest"
+                >
                   <CardImageContainer imageSrc={card.imageSrc}>
                     <CardRatingContainer>
                       <CardRating>
@@ -213,7 +223,7 @@ export default ({
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <CardButton>Buy Now</CardButton>
+                      <CardButton>Listen Now</CardButton>
                     </CardHoverOverlay>
                   </CardImageContainer>
                   <CardText>

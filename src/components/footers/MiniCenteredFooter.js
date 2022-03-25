@@ -36,14 +36,14 @@ export default () => {
         <Row>
           <LogoContainer>
             <LogoImg src={logo} />
-            <LogoText>Treact</LogoText>
+            <LogoText>Gameschord</LogoText>
           </LogoContainer>
           <LinksContainer>
-            <Link href="#">Home</Link>
-            <Link href="#">About</Link>
-            <Link href="#">Contact Us</Link>
-            <Link href="#">Blog</Link>
-            <Link href="#">Reviews</Link>
+            <Link href="/">Home</Link>
+            <Link href="/AboutUs">About</Link>
+            <Link href="/ContactUs">Contact Us</Link>
+            <Link href="/TermsOfService">Terms Of Service</Link>
+            <Link href="/">Reviews</Link>
           </LinksContainer>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">

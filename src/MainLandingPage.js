@@ -9,7 +9,7 @@ import MainFeature2 from "components/features/TwoColSingleFeatureWithStats2.js";
 import TabGrid from "components/cards/TabCardGrid";
 import Testimonial from "components/testimonials/ThreeColumnWithProfileImage";
 import DownloadApp from "components/cta/DownloadApp.js";
-import Footer from "components/footers/FiveColumnWithInputForm.js";
+import Footer from "components/footers/MiniCenteredFooter";
 
 import chefIconImageSrc from "images/chef-icon.svg";
 import celebrationIconImageSrc from "images/celebration-icon.svg";
@@ -33,7 +33,9 @@ export default () => {
         imageCss={imageCss}
         imageDecoratorBlob={true}
         primaryButtonText="Sign up"
-        watchVideoButtonText="Login"
+        primaryButtonUrl = "/Signup"
+        watchVideoButtonText="Why Music?"
+        //watchVideoYoutubeUrl=""
       />
       <MainFeature
         subheading={<Subheading>We use APIs to get every recommendation</Subheading>}
@@ -54,6 +56,7 @@ export default () => {
         buttonRounded={false}
         textOnLeft={false}
         primaryButtonText="About us"
+        primaryButtonUrl = "/AboutUs"
         imageSrc={
           doomE
         }
@@ -94,7 +97,7 @@ export default () => {
           }
         ]}
         primaryButtonText="Sign up"
-        primaryButtonUrl="https://order.now.com"
+        primaryButtonUrl = "/Signup"
         imageInsideDiv={false}
         imageSrc= {smash}
         imageCss={Object.assign(tw`bg-cover`, imageCss)}
