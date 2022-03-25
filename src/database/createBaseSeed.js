@@ -9,7 +9,7 @@ MongoClient.connect(url, function(err, db) {
               { name: "PepexAdm", password: "root", level: "Admin" },
               { name: "PepexUser", password: "root", level: "User" }
             ];
-  dbo.collection("Users").insertMany(objs, function(err, res) {
+  dbo.collection("users").insertMany(objs, function(err, res) {
     if (err) throw err;
     console.log(objs.length+" document inserted");
     db.close();
