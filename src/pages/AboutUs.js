@@ -22,10 +22,13 @@ export default () => {
     <AnimationRevealPage>
       <Header />
       <MainFeature1
-        subheading={<Subheading>About Treact</Subheading>}
-        heading="We are a modern design agency."
-        buttonRounded={false}
-        primaryButtonText="See Portfolio"
+        subheading={<Subheading>About Gamechord.</Subheading>}
+        heading="We are a modern gamer programing team."
+        description="Our goal as a team is to provide other gamers with tools and 
+                      services that will enhance their musical taste based on their favorite games."
+        //buttonRounded={false}
+        primaryButtonText="Contact Us"
+        primaryButtonUrl="/ContactUs"
         imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
       />
       <TeamCardGrid 
