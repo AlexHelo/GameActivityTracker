@@ -101,7 +101,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
  import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
-import AdminPage  from "pages/AdminPage.JS";
+import AdminPage  from "pages/AdminPage.js";
 
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";

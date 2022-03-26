@@ -65,7 +65,7 @@ export default function AddModal(props) {
                 <FormGroup row className='mt-2'>
                         <Label  sm={3}>Select</Label>
                         <Col sm={9}>
-                        <Input type="select" name="select" name="language">
+                        <Input type="select" name="select" language="language">
                             <option>ES</option>
                             <option>EN</option>
                             <option>PT</option>

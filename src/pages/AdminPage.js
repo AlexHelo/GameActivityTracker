@@ -49,6 +49,11 @@ const IllustrationImage = styled.div`
   ${props => `background-image: url("${props.imageSrc}");`}
   ${tw`m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat`}
 `;
+
+//-----------------------------------//
+// id, name, password, level, email. //
+//-----------------------------------//
+
 const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
 function AdminPage() {
     const initialState = [
