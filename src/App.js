@@ -101,8 +101,11 @@ import { css } from "styled-components/macro"; //eslint-disable-line
  import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
+import AdminPage  from "pages/AdminPage.JS";
+
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";
+
 import ThankYouPage from "ThankYouPage.js";
 import userController from "controllers/userController"
 import { User_create_normal_User } from "controllers/userController";
@@ -140,6 +143,9 @@ export default function App() {
         </Route>
         <Route path="/TermsOfService">
           <TermsOfServicePage />
+        </Route>
+        <Route path="/AdminPage">
+          <AdminPage />
         </Route>
         <Route path="/">
           <MainLandingPage />
