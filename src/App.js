@@ -102,6 +102,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
 import AdminPage  from "pages/AdminPage.js";
+import SuperAdminPage  from "pages/SuperAdminPage.js";
 
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";
@@ -146,6 +147,9 @@ export default function App() {
         </Route>
         <Route path="/AdminPage">
           <AdminPage />
+        </Route>
+        <Route path="/SuperAdminPage">
+          <SuperAdminPage />
         </Route>
         <Route path="/">
           <MainLandingPage />

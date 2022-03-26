@@ -70,16 +70,49 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-  const defaultLinks = [
-    <NavLinks key={1}>
-      <NavLink href="/AboutUs">About</NavLink>
-      <NavLink href="/ContactUs">Contact Us</NavLink>
-      <NavLink href="/Login" tw="lg:ml-12!">
-        Login
-      </NavLink>
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
-    </NavLinks>
-  ];
+
+const UserLoginLevel= "SuperAdmin";
+
+switch(UserLoginLevel){
+  case "SuperAdmin":
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+
+        <NavLink href="/SuperAdminPage">SuperAdmin Page</NavLink>
+
+        <NavLink href="/Login" tw="lg:ml-12!">Login</NavLink>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+  case "Admin":
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+
+        <NavLink href="/AdminPage">Admin Page</NavLink>
+
+        <NavLink href="/Login" tw="lg:ml-12!">Login</NavLink>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+  default:
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+        <NavLink href="/Login" tw="lg:ml-12!">Login</NavLink>
+
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+}
+
 
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];

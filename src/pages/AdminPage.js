@@ -44,6 +44,7 @@ const SubmitButton = styled.button`
     ${tw`ml-3`}
   }
 `;
+
 const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 text-center hidden lg:flex justify-center w-full`;
 const IllustrationImage = styled.div`
   ${props => `background-image: url("${props.imageSrc}");`}
@@ -101,12 +102,22 @@ const insertFn = () => {
         setData(nuewData)
     });
  }*/
+
+ const defaultLogoLink = (
+  <LogoLink href="/">
+    <img src={logo} alt="logo" />
+    Gamechord
+  </LogoLink>
+);
+
 return (
   <AnimationRevealPage>
     <Container>
       <Content>
         <MainContent>
-        <Heading>{<>Sign Up For <HighlightedText>Gamechord</HighlightedText></>}</Heading>
+          
+        <Heading>{<>{defaultLogoLink}</>}</Heading>
+        
         </MainContent>
         <MainContainer>      
       <br></br>
