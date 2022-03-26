@@ -13,7 +13,7 @@ import robert from "images/Robert.jpg"
 
 //import nacho from "images/Ignacio.jpg"
 //import pepe from "images/Pepe.jpg"
-//import alex from "images/Alex.jpg"
+import alex from "images/Alex.jpg"
 
 const HeadingContainer = tw.div``
 const Heading = tw(SectionHeading)``
@@ -57,7 +57,7 @@ export default ({
       name: "Roberto Rivera Terán",
       links: [
         {
-          url: "https://linkedin.com",
+          url: "https://www.linkedin.com/in/robertoriverateran/",
           icon: LinkedinIcon,
         },
         {
@@ -97,16 +97,12 @@ export default ({
       ],
     },
     {
-      imageSrc: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
+      imageSrc: alex,
       position: "Programer",
       name: "Manuel Alejandro Hernández Lopez",
       links: [
         {
-          url: "https://twitter.com",
-          icon: TwitterIcon,
-        },
-        {
-          url: "https://linkedin.com",
+          url: "https://www.linkedin.com/in/alexhelo/",
           icon: LinkedinIcon,
         },
         {
