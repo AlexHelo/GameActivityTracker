@@ -9,6 +9,12 @@ import { ReactComponent as TwitterIcon} from "images/twitter-icon.svg";
 import { ReactComponent as LinkedinIcon} from "images/linkedin-icon.svg";
 import { ReactComponent as GithubIcon } from "images/github-icon.svg";
 
+import robert from "images/Robert.jpg"
+
+//import nacho from "images/Ignacio.jpg"
+//import pepe from "images/Pepe.jpg"
+//import alex from "images/Alex.jpg"
+
 const HeadingContainer = tw.div``
 const Heading = tw(SectionHeading)``
 const Subheading = tw(SubheadingBase)`text-center mb-3`
@@ -43,69 +49,57 @@ const CardLinks = styled.div`
 export default ({
   heading = "Meet These Fine Folks.",
   subheading = "Our Team",
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description = "We are students at the Monterrey Institute of Technology and Higher Education (ITSM) currently working on the integrator project for the subject of Web Laboratory TC3052.1.",
   cards = [
     {
-      imageSrc: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
-      position: "Founder",
-      name: "Adam Cuppy",
+      imageSrc: robert,
+      position: "Programer",
+      name: "Roberto Rivera Terán",
       links: [
-        {
-          url: "https://twitter.com",
-          icon: TwitterIcon,
-        },
         {
           url: "https://linkedin.com",
           icon: LinkedinIcon,
         },
         {
-          url: "https://github.com",
+          url: "https://github.com/11081999",
           icon: GithubIcon,
         },
       ],
     },
     {
       imageSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
-      position: "Sr. Designer",
-      name: "Charlotte Hale",
+      position: "Programer",
+      name: "Ignacio Alvarado Reyes",
       links: [
-        {
-          url: "https://twitter.com",
-          icon: TwitterIcon,
-        },
         {
           url: "https://linkedin.com",
           icon: LinkedinIcon,
         },
         {
-          url: "https://github.com",
+          url: "https://github.com/IgnacioAlvarado",
           icon: GithubIcon,
         },
       ],
     },
     {
       imageSrc: "https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
-      position: "Jr. Designer",
-      name: "Silvester Wize",
+      position: "Programer",
+      name: "Jose Antonio Berron Gutierres",
       links: [
-        {
-          url: "https://twitter.com",
-          icon: TwitterIcon,
-        },
         {
           url: "https://linkedin.com",
           icon: LinkedinIcon,
         },
         {
-          url: "https://github.com",
+          url: "https://github.com/JoseBG-spec",
           icon: GithubIcon,
         },
       ],
     },
     {
       imageSrc: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
-      position: "Lead Developer",
-      name: "Himali Turn",
+      position: "Programer",
+      name: "Manuel Alejandro Hernández Lopez",
       links: [
         {
           url: "https://twitter.com",
@@ -116,11 +110,11 @@ export default ({
           icon: LinkedinIcon,
         },
         {
-          url: "https://github.com",
+          url: "hhttps://github.com/AlexHelo",
           icon: GithubIcon,
         },
       ],
-    },
+    }/*,
     {
       imageSrc: "https://images.unsplash.com/photo-1546820389-44d77e1f3b31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=3.45&w=512&h=512&q=80",
       position: "Sr. Developer",
@@ -158,7 +152,7 @@ export default ({
           icon: GithubIcon,
         },
       ],
-    },
+    },*/
   ]
 }) => {
   return (
