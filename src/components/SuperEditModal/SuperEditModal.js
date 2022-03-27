@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import Axios from "axios";
 
-export default function EditModal(props) {
+export default function SuperEditModal(props) {
   const {
     showEditModal,
     setShowEditModal,
@@ -26,12 +26,12 @@ export default function EditModal(props) {
   } = props;
   const toggle = () => setShowEditModal(!showEditModal);
 
-  const handleSubmit = (id, level) => {
+  const handleSubmit = (id) => {
     Axios.put("http://localhost:3001/update", {
       id,
       name: item.name,
       password: item.password,
-      level,
+      level: item.level,
     });
     setShowEditModal(false);
   };
@@ -43,7 +43,7 @@ export default function EditModal(props) {
       <Form
         onSubmit={(event) => {
           event.preventDefault();
-          handleSubmit(item._id, item.level);
+          handleSubmit(item._id);
         }}
       >
         <ModalHeader>
@@ -81,6 +81,24 @@ export default function EditModal(props) {
                   setItem({ ...item, password: event.target.value });
                 }}
               />
+            </Col>
+          </FormGroup>
+
+          <FormGroup row className="mt-2">
+            <Label sm={3}>Level</Label>
+            <Col sm={9}>
+              <Input
+                type="select"
+                name="level"
+                defaultValue={item.level}
+                onChange={(event) => {
+                  setItem({ ...item, level: event.target.value });
+                }}
+              >
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="superadmin">superadmin</option>
+              </Input>
             </Col>
           </FormGroup>
         </ModalBody>

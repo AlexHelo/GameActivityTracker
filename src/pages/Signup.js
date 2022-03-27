@@ -10,6 +10,7 @@ import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import App from "App";
+import Axios from "axios";
 
 const Container = tw(
   ContainerBase
@@ -86,13 +87,10 @@ export default function Signup({
 
   const addToList = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3001/user-create", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: userName, password, level }),
+    Axios.post("http://localhost:3001/user-create", {
+      name: userName,
+      password,
+      level,
     });
   };
   return (

@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import Axios from "axios";
 
-export default function AddModal(props) {
+export default function SuperAddModal(props) {
   const { showAddModal, setShowAddModal, data, setData, ...rest } = props;
   const [modal, setModal] = useState(false);
   const toggle = () => setShowAddModal(!showAddModal);
@@ -72,6 +72,23 @@ export default function AddModal(props) {
                   setPassword(event.target.value);
                 }}
               />
+            </Col>
+          </FormGroup>
+
+          <FormGroup row className="mt-2">
+            <Label sm={3}>Level</Label>
+            <Col sm={9}>
+              <Input
+                type="select"
+                name="level"
+                onChange={(event) => {
+                  setLevel(event.target.value);
+                }}
+              >
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="superadmin">superadmin</option>
+              </Input>
             </Col>
           </FormGroup>
         </ModalBody>
