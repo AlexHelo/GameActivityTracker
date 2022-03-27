@@ -76,8 +76,8 @@ export default function Signup({
   ],
   submitButtonText = "Sign Up",
   SubmitButtonIcon = SignUpIcon,
-  tosUrl = "#",
-  privacyPolicyUrl = "#",
+  tosUrl = "/TermsOfService",
+  privacyPolicyUrl = "/PrivacyPolicy",
   signInUrl = "/Login",
 }) {
   const [userName, setUserName] = useState("");

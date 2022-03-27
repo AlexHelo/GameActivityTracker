@@ -5,35 +5,47 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import Header from "components/headers/light.js";
-import Footer from "components/footers/FiveColumnWithInputForm.js";
+import Footer from "components/footers/MiniCenteredFooter.js";
 import { SectionHeading } from "components/misc/Headings";
 
 const HeadingRow = tw.div`flex`;
-const Heading = tw(SectionHeading)`text-gray-900 mb-10`;
+const Heading = tw(SectionHeading)`text-red-900 mb-10`;
 const Text = styled.div`
-  ${tw`text-lg  text-gray-800`}
-  p {
-    ${tw`mt-2 leading-loose`}
-  }
-  h1 {
-    ${tw`text-3xl font-bold mt-10`}
-  }
-  h2 {
-    ${tw`text-2xl font-bold mt-8`}
-  }
-  h3 {
-    ${tw`text-xl font-bold mt-6`}
-  }
-  ul {
-    ${tw`list-disc list-inside`}
-    li {
-      ${tw`ml-2 mb-3`}
-      p {
-        ${tw`mt-0 inline leading-normal`}
-      }
+${tw`text-lg  text-red-800`}
+  
+p {
+  ${tw`mt-2 leading-loose`};
+  color: white;
+}
+h1 {
+  ${tw`text-3xl font-bold mt-10`};
+  color: white;
+}
+strong {
+  color: white;
+}
+h2 {
+  ${tw`text-2xl font-bold mt-8`};
+  color: white;
+}
+h3 {
+  ${tw`text-xl font-bold mt-6`};
+  color: white;
+}
+ul {
+  ${tw`list-disc list-inside`};
+  color: white;
+  li {
+    ${tw`ml-2 mb-3`};
+    color: white;
+    p {
+      ${tw`mt-0 inline leading-normal`};
+      color: white;
     }
   }
+}
 `;
+
 export default ({ headingText = "Privacy Policy" }) => {
   return (
     <AnimationRevealPage>
@@ -44,7 +56,7 @@ export default ({ headingText = "Privacy Policy" }) => {
             <Heading>{headingText}</Heading>
           </HeadingRow>
           <Text>
-            <p>Last updated: April 21, 2020</p>
+            <p>Last updated: March 26, 2022</p>
 
             <p>
               This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your

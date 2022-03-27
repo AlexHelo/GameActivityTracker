@@ -43,21 +43,9 @@ export default () => {
             <Link href="/AboutUs">About</Link>
             <Link href="/ContactUs">Contact Us</Link>
             <Link href="/TermsOfService">Terms Of Service</Link>
-            <Link href="/">Reviews</Link>
           </LinksContainer>
-          <SocialLinksContainer>
-            <SocialLink href="https://facebook.com">
-              <FacebookIcon />
-            </SocialLink>
-            <SocialLink href="https://twitter.com">
-              <TwitterIcon />
-            </SocialLink>
-            <SocialLink href="https://youtube.com">
-              <YoutubeIcon />
-            </SocialLink>
-          </SocialLinksContainer>
           <CopyrightText>
-            &copy; Copyright 2020, Treact Inc. All Rights Reserved.
+            &copy; Copyright 2022S, Gamechord Inc. All Rights Reserved.
           </CopyrightText>
         </Row>
       </Content>

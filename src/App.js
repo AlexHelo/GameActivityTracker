@@ -99,7 +99,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
  import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
  import TermsOfServicePage from "pages/TermsOfService.js";
-// import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
+ import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 
 import AdminPage  from "pages/AdminPage.js";
 import SuperAdminPage  from "pages/SuperAdminPage.js";
@@ -150,6 +150,9 @@ export default function App() {
         </Route>
         <Route path="/SuperAdminPage">
           <SuperAdminPage />
+        </Route>
+        <Route path="/PrivacyPolicy">
+          <PrivacyPolicyPage />
         </Route>
         <Route path="/">
           <MainLandingPage />
