@@ -155,21 +155,19 @@ const history = useHistory();
             </SubmitButton>
             <br></br>
           </MainContainer>
-          <TableContainer></TableContainer>
+          
           <Table responsive dark>
             <thead>
               <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>level</th>
+                <th style={{width: "44%"}}>id</th> 
+                <th style={{width: "44%"}}>level</th>
               </tr>
             </thead>
             <tbody>
               {data.map((item) => (
                 <tr key={item.email}>
-                  <td>{item.email}</td>
-                  <td>{item.name}</td>
-                  <td>{item.level}</td>
+                  <td style={{textAlign: "center"}}>{item.email}</td>
+                  <td style={{textAlign: "center"}}>{item.level}</td>
                   <td>
                     <SubmitButton color="warning" onClick={() => editFn(item)}>
                       <BsFillPencilFill />
@@ -185,6 +183,7 @@ const history = useHistory();
               ))}
             </tbody>
           </Table>
+          
         </Content>
       </Container>
       <AddModal
