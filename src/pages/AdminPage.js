@@ -132,7 +132,10 @@ const history = useHistory();
       }
 
     }
-    Axios.get("http://localhost:3001/admin-query").then((response) => {
+    else{
+      history.replace('/dashboard')
+    }
+      Axios.get("http://localhost:3001/admin-query").then((response) => {
       setData(response.data);
     });
   }, []);

@@ -132,6 +132,9 @@ function AdminPage() {
       }
 
     }
+    else{
+      history.replace('/dashboard')
+    }
     Axios.get("http://localhost:3001/superadmin-query").then((response) => {
       setData(response.data);
     });
