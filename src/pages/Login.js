@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -54,7 +54,7 @@ const IllustrationImage = styled.div`
 `;
 const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
 
-export default ({
+export default function Login ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
   headingText = "",
@@ -75,7 +75,39 @@ export default ({
   forgotPasswordUrl = "#",
   signupUrl = "/Signup",
 
-}) => (
+  
+
+}) {
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+
+	async function loginUser(event) {
+		event.preventDefault()
+
+		const response = await fetch('http://localhost:3001/user-login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+			}),SubmitButton
+		})
+
+		const data = await response.json()
+
+
+		if (data.user) {
+			localStorage.setItem('token', data.user)
+			alert('Login successful')
+			window.location.href = '/dashboard'
+		} else {
+			alert('Please check your username and password')
+		}
+	}
+
+return (
   <AnimationRevealPage>
     <Container>
       <Content>
@@ -86,9 +118,14 @@ export default ({
           <MainContent>
             <Heading>{<>Sign In To <HighlightedText>GameChord</HighlightedText></>}</Heading>
             <FormContainer>
-              <Form>
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
+              <Form onSubmit={loginUser}>
+                <Input type="email"  placeholder="Email"
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }} />
+                <Input type="password" placeholder="Password" onChange={(event) => {
+                  setPassword(event.target.value);
+                }}/>
                 <SubmitButton type="submit">
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
@@ -115,3 +152,4 @@ export default ({
     </Container>
   </AnimationRevealPage>
 );
+}

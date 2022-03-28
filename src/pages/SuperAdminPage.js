@@ -13,6 +13,8 @@ import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg
 import SuperAddModal from "../components/SuperAddModal";
 import SuperEditModal from "../components/SuperEditModal";
 import Axios from "axios";
+import jwt from "jsonwebtoken";
+import { useHistory } from "react-router-dom";
 
 import {
   Table,
@@ -97,10 +99,11 @@ function AdminPage() {
     setShowEditModal(true);
     setItem(item);
   };
-  const deleteFn = (id) => {
-    let opcion = window.confirm("Are you sure you want to delete" + id);
+  const deleteFn = (id, email) => {
+    let opcion = window.confirm("Are you sure you want to delete the account " + email);
     if (opcion == true) {
       Axios.delete(`http://localhost:3001/delete/${id}`);
+      window.location.reload(false);
     }
   };
   const restartFn = () => {
@@ -114,7 +117,21 @@ function AdminPage() {
     </LogoLink>
   );
 
+  const history = useHistory();
   useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(token){
+      const user = jwt.decode(token)
+      if (!user) {
+        localStorage.removeItem('token')
+        history.replace('/login')
+      }
+      if (user.level != "superadmin") {
+        console.log(user)
+        history.replace('/dashboard')
+      }
+
+    }
     Axios.get("http://localhost:3001/superadmin-query").then((response) => {
       setData(response.data);
     });
@@ -146,8 +163,8 @@ function AdminPage() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr key={item._id}>
-                  <td>{item._id}</td>
+                <tr key={item.email}>
+                  <td>{item.email}</td>
                   <td>{item.name}</td>
                   <td>{item.level}</td>
                   <td>
@@ -156,7 +173,7 @@ function AdminPage() {
                     </SubmitButton>{" "}
                     <SubmitButton
                       color="danger"
-                      onClick={() => deleteFn(item._id)}
+                      onClick={() => deleteFn(item._id, item.email)}
                     >
                       <BsTrash />
                     </SubmitButton>

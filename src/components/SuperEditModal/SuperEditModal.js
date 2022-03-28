@@ -29,14 +29,14 @@ export default function SuperEditModal(props) {
   const handleSubmit = (id) => {
     Axios.put("http://localhost:3001/update", {
       id,
-      name: item.name,
+      email: item.email,
       password: item.password,
       level: item.level,
     });
+    window.location.reload(false);
     setShowEditModal(false);
   };
 
-  console.log("data:", data);
 
   return (
     <Modal isOpen={showEditModal} toggle={toggle}>
@@ -60,9 +60,9 @@ export default function SuperEditModal(props) {
                 type="email"
                 required
                 name="email"
-                defaultValue={item.name}
+                defaultValue={item.email}
                 onChange={(event) => {
-                  setItem({ ...item, name: event.target.value });
+                  setItem({ ...item, email: event.target.value });
                 }}
               />
             </Col>

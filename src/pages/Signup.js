@@ -9,22 +9,24 @@ import logo from "images/logo.png";
 import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
+import { useHistory } from 'react-router-dom'
 import App from "App";
-import Axios from "axios";
 
 const Container = tw(
-  ContainerBase
-)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
-const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-gray-900 text-white shadow sm:rounded-lg flex justify-center flex-1`;
-const MainContainer = tw.div`lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
-const LogoLink = tw.a``;
-const LogoImage = tw.img`h-12 mx-auto`;
-const MainContent = tw.div`mt-12 flex flex-col items-center`;
-const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
-const FormContainer = tw.div`w-full flex-1 mt-8`;
+    ContainerBase
+)
+`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
+const Content = tw.div `max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-gray-900 text-white shadow sm:rounded-lg flex justify-center flex-1`;
+const MainContainer = tw.div `lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
+const LogoLink = tw.a ``;
+const LogoImage = tw.img `h-12 mx-auto`;
+const MainContent = tw.div `mt-12 flex flex-col items-center`;
+const Heading = tw.h1 `text-2xl xl:text-3xl font-extrabold`;
+const FormContainer = tw.div `w-full flex-1 mt-8`;
 
-const SocialButtonsContainer = tw.div`flex flex-col items-center`;
-const SocialButton = styled.a`
+
+const SocialButtonsContainer = tw.div `flex flex-col items-center`;
+const SocialButton = styled.a `
   ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
   .iconContainer {
     ${tw`bg-white p-2 rounded-full`}
@@ -59,9 +61,10 @@ const IllustrationImage = styled.div`
 const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
 
 export default function Signup({
+  
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
-
+  
   headingText = "",
   socialButtons = [
     {
@@ -81,18 +84,36 @@ export default function Signup({
   privacyPolicyUrl = "/PrivacyPolicy",
   signInUrl = "/Login",
 }) {
-  const [userName, setUserName] = useState("");
+  const history = useHistory()
+  const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [level, setLevel] = useState("user");
+  const [level] = useState("user");
 
-  const addToList = (event) => {
+  async function registerUser(event) {
     event.preventDefault();
-    Axios.post("http://localhost:3001/user-create", {
-      name: userName,
-      password,
-      level,
-    });
+
+    const response = await fetch("http://localhost:3001/user-create",{
+
+      method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+        level
+			}),
+    })
+    const data = await response.json()
+
+		if (data.status === 'ok') {
+			history.push('/login')
+
   };
+
+}
+
+  
   return (
     <AnimationRevealPage>
       <Container>
@@ -110,11 +131,11 @@ export default function Signup({
                 }
               </Heading>
               <FormContainer>
-                <Form onSubmit={addToList}>
+                <Form onSubmit={registerUser}>
                   <Input
                     placeholder="Email"
                     onChange={(event) => {
-                      setUserName(event.target.value);
+                      setUserEmail(event.target.value);
                     }}
                   />
                   <Input

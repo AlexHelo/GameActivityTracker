@@ -29,14 +29,15 @@ export default function EditModal(props) {
   const handleSubmit = (id, level) => {
     Axios.put("http://localhost:3001/update", {
       id,
-      name: item.name,
+      email: item.email,
       password: item.password,
       level,
     });
+    window.location.reload(false);
     setShowEditModal(false);
   };
 
-  console.log("data:", data);
+  
 
   return (
     <Modal isOpen={showEditModal} toggle={toggle}>
@@ -60,9 +61,9 @@ export default function EditModal(props) {
                 type="email"
                 required
                 name="email"
-                defaultValue={item.name}
+                defaultValue={item.email}
                 onChange={(event) => {
-                  setItem({ ...item, name: event.target.value });
+                  setItem({ ...item, email: event.target.value });
                 }}
               />
             </Col>
