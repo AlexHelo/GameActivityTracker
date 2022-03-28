@@ -26,10 +26,11 @@ export default function SuperAddModal(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:3001/user-create", {
-      name: userName,
-      password,
+      email: userName,
+      password: password,
       level,
     });
+    window.location.reload(false);
     setShowAddModal(false);
   };
 

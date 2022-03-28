@@ -164,13 +164,7 @@ export default ({
       <ContentWithPaddingXl>
         <HeaderRow>
           <Header>{heading}</Header>
-          <TabsControl>
-            {Object.keys(tabs).map((tabName, index) => (
-              <TabControl key={index} active={activeTab === tabName} onClick={() => setActiveTab(tabName)}>
-                {tabName}
-              </TabControl>
-            ))}
-          </TabsControl>
+          
         </HeaderRow>
 
         {tabsKeys.map((tabKey, index) => (

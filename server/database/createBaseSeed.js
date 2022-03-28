@@ -1,17 +1,16 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var MongoClient = require("mongodb").MongoClient;
+var url = "mongodb://127.0.0.1:27017/test";
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
   if (err) throw err;
-  var dbo = db.db("testMongo");
-  var objs = [{ name: "Pepex", password: "root", level: "SuperAdmin" },
-              { name: "Nacho", password: "root", level: "SuperAdmin" },
-              { name: "PepexAdm", password: "root", level: "Admin" },
-              { name: "PepexUser", password: "root", level: "User" }
-            ];
-  dbo.collection("users").insertMany(objs, function(err, res) {
+  var dbo = db.db("test");
+  var objs = [
+    { email: "super@gmail.com", password: "root", level: "superadmin" },
+    { email: "admin@gmail.com", password: "root", level: "admin" },
+  ];
+  dbo.collection("user-data").insertMany(objs, function (err, res) {
     if (err) throw err;
-    console.log(objs.length+" document inserted");
+    console.log(objs.length + " document inserted");
     db.close();
   });
-}); 
+});

@@ -54,7 +54,6 @@ app.put("/update", async (req, res) => {
   const password = req.body.password;
   const level = req.body.level;
   const id = req.body.id;
-
   try {
     await UserModel.findByIdAndUpdate(id, { email, password, level });
   } catch (err) {
