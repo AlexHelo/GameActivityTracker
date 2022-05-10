@@ -6,8 +6,10 @@ import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/login-illustration.png";
 import logo from "images/logo.png";
-import googleIconImageSrc from "images/google-icon.png";
-import twitterIconImageSrc from "images/twitter-icon.png";
+//import googleIconImageSrc from "images/google-icon.png";
+//import twitterIconImageSrc from "images/twitter-icon.png";
+import steamIconImageSrc from "images/Steam_icon.png";
+import spotifyIconImageSrc from "images/Spotify_icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
@@ -21,12 +23,12 @@ const FormContainer = tw.div`w-full flex-1 mt-8`;
 
 const SocialButtonsContainer = tw.div`flex flex-col items-center`;
 const SocialButton = styled.a`
-  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
+  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 bg-primary-500 text-gray-100 hocus:bg-primary-500 hocus:bg-primary-500 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
   .iconContainer {
-    ${tw`bg-white p-2 rounded-full`}
+    ${tw`bg-primary-500 p-2 rounded-full`}
   }
   .icon {
-    ${tw`w-4`}
+    ${tw`w-6`}
   }
   .text {
     ${tw`ml-4`}
@@ -60,13 +62,13 @@ export default function Login ({
   headingText = "",
   socialButtons = [
     {
-      iconImageSrc: googleIconImageSrc,
-      text: "Sign In With Google",
-      url: "https://google.com"
+      iconImageSrc: steamIconImageSrc,
+      text: "Sign In With Steam",
+      url: "http://localhost:3001/auth/steam/"
     },
     {
-      iconImageSrc: twitterIconImageSrc,
-      text: "Sign In With Twitter",
+      iconImageSrc: spotifyIconImageSrc,
+      text: "Sign In With Spotify",
       url: "https://twitter.com"
     }
   ],
@@ -132,16 +134,27 @@ return (
                 </SubmitButton>
               </Form>
               <p tw="mt-6 text-xs text-gray-600 text-center">
-                <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
-                  
-                </a>
               </p>
               <p tw="mt-8 text-sm text-gray-600 text-center">
                 Dont have an account?{" "}
                 <a href={signupUrl} tw="border-b border-gray-500 border-dotted">
-                  Sign Up
+                  <HighlightedText>Sign Up</HighlightedText>
                 </a>
+                <br></br>
+                Or use one of our partners:
               </p>
+              <br></br>
+              <SocialButtonsContainer>
+                {socialButtons.map((socialButton, index) => (
+                  <SocialButton key={index} href={socialButton.url}>
+                    <span className="iconContainer">
+                      <img src={socialButton.iconImageSrc} className="icon" alt=""/>
+                    </span>
+                    <span className="text">{socialButton.text}</span>
+                  </SocialButton>
+                ))}
+              </SocialButtonsContainer>
+
             </FormContainer>
           </MainContent>
         </MainContainer>
