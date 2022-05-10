@@ -32,7 +32,7 @@ const CardContent = styled.div`
     ${tw`uppercase font-bold tracking-widest text-xs text-primary-500`}
   }
   .name {
-    ${tw`mt-1 text-xl font-medium text-gray-900`}
+    ${tw`mt-1 text-xl font-medium text-white`}
   9
 `
 
@@ -49,7 +49,7 @@ const CardLinks = styled.div`
 export default ({
   heading = "Meet These Fine Folks.",
   subheading = "Our Team",
-  description = "We are students at the Monterrey Institute of Technology and Higher Education (ITSM) currently working on the integrator project for the subject of Web Laboratory TC3052.1.",
+  description = "We are students at the Instituto Tecnológico de Estudios Superiores de Monterrey Campus Ciudad de México (ITESM) currently working on the integrator project for the subject of Web Laboratory TC3052.1.",
   cards = [
     {
       imageSrc: robert,

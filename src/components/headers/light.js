@@ -119,8 +119,10 @@ switch(UserLoginLevel){
     case "user":
     var defaultLinks = [
       <NavLinks key={1}>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Recommendations">Recomendations</PrimaryLink>
         <NavLink href="/AboutUs">About</NavLink>
         <NavLink href="/ContactUs">Contact Us</NavLink>
+        
         <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="#"onClick={logout}>Sign Out</PrimaryLink>
       </NavLinks>
     ];
