@@ -5,17 +5,113 @@ const cors = require("cors");
 const UserModel = require("./models/User");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+var passport = require('passport')
+  , util = require('util')
+  , session = require('express-session')
+  //, SteamStrategy = require('./lib/passport-steam/index').Strategy
+  , SteamStrategy = require('passport-steam').Strategy
+  , authRoutes = require('./routes/auth');
 
 app.use(express.json());
 app.use(cors());
+app.use(session({
+  secret: 'Gamer',
+  name: 'GameChord',
+  resave: true,
+  saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+passport.use(new SteamStrategy({
+  returnURL: 'http://localhost:3001/auth/steam/return',
+  realm: 'http://localhost:3001/',
+  apiKey: '3187604900E3A919C6CCB848D996D1AB',
+},
+function(identifier, profile, done) {
+  process.nextTick(function () {
+    console.log(identifier)
+    profile.identifier = identifier;
+    return done(null, profile);
+  });
+}
+));
+
+app.use(session({
+    secret: 'your secret',
+    name: 'name of session id',
+    resave: true,
+    saveUninitialized: true}));
+
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account', { user: req.user });
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/auth/steam',
+  passport.authenticate('steam', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/auth/steam/return',
+  passport.authenticate('steam', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.listen(3002);
+
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
+
+app.get('/', function(req, res) {
+  if (req.user)
+      res.send('Stored in session when logged : <br><br> ' + 
+          JSON.stringify(req.user) + '<br><br>' +
+          '<a href="/logout">Logout</a>'+ '<br><br>' +
+          '<a href="/gamer">CheckCheck</a>');
+  else
+      res.send('Not connected : <a href="/auth/steam"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png"></a>');
+});
+app.get('/gamer', ensureAuthenticated, function(req, res) {
+  if (req.user)
+      res.send('Check : <br><br> ' + 
+          JSON.stringify(req.user.displayName) + '<br><br>' +
+          '<a href="/logout">Logout</a>'+ '<br><br>' +
+          '<a href="/">Back</a>');
+  else
+      res.send('Not connected : <a href="/auth/steam"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png"></a>');
+});
 
 
+//Mongoose Connection
 mongoose.connect("mongodb://127.0.0.1:27017/test", { useNewUrlParser: true });
 
 app.post("/user-create", async (req, res) => {
-
-
-
   try {
     await User.create({
       email: req.body.email,
