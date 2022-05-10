@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const findOrCreate = require("mongoose-findorcreate");
 
 const UserSchema = new mongoose.Schema({
     email:{
@@ -16,6 +17,8 @@ const UserSchema = new mongoose.Schema({
     },
     
 },{collection: 'user-data'})
+
+UserSchema.plugin(findOrCreate);
 
 const User = mongoose.model("Users",UserSchema)
 module.exports = User

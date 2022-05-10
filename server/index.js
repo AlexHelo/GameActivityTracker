@@ -68,7 +68,7 @@ passport.use(
       callbackURL: 'http://localhost:3001/auth/spotify/callback'
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
-      User.create({ email: profile.id, 
+      User.findOrCreate({ email: profile.id, 
                     password: "test",
                     level: "user" }, 
         function(err, user) {
