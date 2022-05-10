@@ -27,6 +27,7 @@
     "twin.macro": "^2.3.3"
   },
   "scripts": {
+    "jas_test": "jasmine",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
