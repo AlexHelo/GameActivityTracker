@@ -42,11 +42,15 @@ passport.use(new SteamStrategy({
   apiKey: '3187604900E3A919C6CCB848D996D1AB',
 },
 function(identifier, profile, done) {
+  User.findOrCreate({ email: identifier, 
+    password: "testo",
+    level: "user" }, 
+  
   process.nextTick(function () {
     console.log(identifier)
     profile.identifier = identifier;
     return done(null, profile);
-  });
+  }));
 }
 ));
 
