@@ -30,8 +30,13 @@ describe('User.createInstance //', ()=>{
                 db.close();
             }); 
 
-            var querry= dbo.collection("users").findOne({name: "Test"})
-            expect(querry.name).toBe("Test");
+            var querry= dbo.collection("users").findOne({name: "Test"}, async function(err, res) {
+                if (err) throw err;
+
+                expect(querry.name).toBe("Test");
+
+                db.close();
+            }); 
 
             done()
 
@@ -56,6 +61,16 @@ describe('User.delete //', ()=>{
                 //console.log("1 user deleted");
                 db.close();
             });
+
+            //Comprobar que se borró
+            var querry= dbo.collection("users").findOne({name: "Test"}, async function(err, res) {
+                if (err) throw err;
+
+                expect(querry.name).toBe(undefined);
+                
+                db.close();
+            });
+ 
 
             done()
         });
