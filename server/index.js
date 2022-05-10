@@ -5,6 +5,8 @@ const cors = require("cors");
 const UserModel = require("./models/User");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const SpotifyStrategy = require('passport-spotify').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
@@ -21,6 +23,10 @@ app.use(session({
   saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
+app.get('/auth/spotify', passport.authenticate('spotify'));
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -43,6 +49,34 @@ function(identifier, profile, done) {
   });
 }
 ));
+
+app.get(
+  '/auth/spotify/callback',
+  passport.authenticate('spotify', { failureRedirect: 'http://localhost:3000/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('http://localhost:3000/');
+  }
+);
+
+
+passport.use(
+  new SpotifyStrategy(
+    {
+      clientID: "3d133132c4ca4a499febaa0a907c23d2",
+      clientSecret: "25249af674c641dca0a2361c8f483abc",
+      callbackURL: 'http://localhost:3001/auth/spotify/callback'
+    },
+    function(accessToken, refreshToken, expires_in, profile, done) {
+      User.create({ email: profile.id, 
+                    password: "test",
+                    level: "user" }, 
+        function(err, user) {
+        return done(err, user);
+      });
+    }
+  )
+);
 
 app.use(session({
     secret: 'your secret',

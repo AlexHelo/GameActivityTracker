@@ -69,7 +69,7 @@ export default function Login ({
     {
       iconImageSrc: spotifyIconImageSrc,
       text: "Sign In With Spotify",
-      url: "https://twitter.com"
+      url: "http://localhost:3001/auth/spotify/"
     }
   ],
   submitButtonText = "Sign In",
