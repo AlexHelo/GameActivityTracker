@@ -3,10 +3,11 @@ import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Hero from "components/hero/TwoColumnWithVideo.js";
+//import Header from "../headers/light.js";
 import Features from "components/features/ThreeColSimple.js";
 import MainFeature from "components/features/TwoColWithButton.js";
 import MainFeature2 from "components/features/TwoColSingleFeatureWithStats2.js";
-import TabGrid from "components/cards/TabCardGrid";
+import TabGrid from "components/cards/ThreeColSlider";
 import Testimonial from "components/testimonials/ThreeColumnWithProfileImage";
 import DownloadApp from "components/cta/DownloadApp.js";
 import Footer from "components/footers/MiniCenteredFooter";
@@ -37,38 +38,11 @@ export default () => {
         watchVideoButtonText="Why Music?"
         //watchVideoYoutubeUrl=""
       />
-      <MainFeature
-        subheading={<Subheading>We use APIs to get every recommendation</Subheading>}
-        heading={
-          <>
-            We know how difficult is to find your 
-            <wbr /> <HighlightedText>new favorite song.</HighlightedText>
-          </>
-        }
-        description={
-          <Description>
-            In order to find and get your every taste of your gaming needs, we use the <HighlightedText>Steam API</HighlightedText> to know your gaming hobbies and the games you enjoyed the most.
-            <br />
-            <br />
-            And in order to show you and see if you like those recommendations we use the <HighlightedText>Spotify API</HighlightedText> so you can play along and add them to your playlist
-          </Description>
-        }
-        buttonRounded={false}
-        textOnLeft={false}
-        primaryButtonText="About us"
-        primaryButtonUrl = "/AboutUs"
-        imageSrc={
-          doomE
-        }
-        imageCss={imageCss}
-        imageDecoratorBlob={true}
-        imageDecoratorBlobCss={tw`left-1/2 -translate-x-1/2 md:w-32 md:h-32 opacity-25`}
-      />
       {/* TabGrid Component also accepts a tabs prop to customize the tabs and its content directly. Please open the TabGrid component file to see the structure of the tabs props.*/}
-      <TabGrid
+      <TabGrid 
         heading={
           <>
-            Check our <HighlightedText>recommendations.</HighlightedText>
+            Check your <HighlightedText>recommendations.</HighlightedText>
           </>
         }
 

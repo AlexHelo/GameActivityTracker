@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+const { debug } = require("console");
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
@@ -59,7 +60,8 @@ app.get(
   passport.authenticate('spotify', { failureRedirect: 'http://localhost:3000/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('http://localhost:3000/');
+    console.log("Spotify")
+    res.redirect('http://localhost:3000/',);
   }
 );
 
@@ -67,8 +69,8 @@ app.get(
 passport.use(
   new SpotifyStrategy(
     {
-      clientID: "3d133132c4ca4a499febaa0a907c23d2",
-      clientSecret: "25249af674c641dca0a2361c8f483abc",
+      clientID: "c592e9b4a6de4c2aac10256ff7ce9e9b",
+      clientSecret: "ad672c410ffa46bb81a6535a8846023d",
       callbackURL: 'http://localhost:3001/auth/spotify/callback'
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
@@ -111,7 +113,8 @@ app.get('/auth/steam',
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    console.log("Steam")
+    res.redirect('http://localhost:3000/');
   });
 
 app.listen(3002);
@@ -180,7 +183,6 @@ app.post("/user-login", async (req, res) => {
     } else {
         return res.json({status: 'error', user: false})
     }
-
 });
 
 app.put("/update", async (req, res) => {
