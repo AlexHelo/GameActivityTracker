@@ -65,31 +65,9 @@ const IconContainer = styled.div`
 const Text = tw.div`ml-2 text-sm font-semibold text-gray-800`;
 
 const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6`;
-export default () => {
-  // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
-  const [sliderRef, setSliderRef] = useState(null);
-  const sliderSettings = {
-    arrows: false,
-    slidesToShow: 3,
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 1,
-        }
-      },
-    ]
-  };
-
-  /* Change this according to your needs */
-  const cards = [
+export default ({
+  heading = "Gamers",
+  cards = [
     {
       imageSrc: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
       title: "Wyatt Residency",
@@ -123,12 +101,37 @@ export default () => {
       rating: 4.5,
     },
   ]
+}) => {
+  
+
+  // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
+  const [sliderRef, setSliderRef] = useState(null);
+  const sliderSettings = {
+    arrows: false,
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ]
+  };
+  
 
   return (
     <Container>
       <Content>
         <HeadingWithControl>
-          <Heading>Popular Hotels</Heading>
+          <Heading>{heading}</Heading>
           <Controls>
             <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon/></PrevButton>
             <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon/></NextButton>

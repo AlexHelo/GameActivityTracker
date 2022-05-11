@@ -12,7 +12,8 @@ var passport = require('passport')
   , session = require('express-session')
   //, SteamStrategy = require('./lib/passport-steam/index').Strategy
   , SteamStrategy = require('passport-steam').Strategy
-  , authRoutes = require('./routes/auth');
+  , authRoutes = require('./routes/auth')
+  , request = require('request');
 
 app.use(express.json());
 app.use(cors());
@@ -23,7 +24,25 @@ app.use(session({
   saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+app.get('/getrecentlyplayed', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+var url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3187604900E3A919C6CCB848D996D1AB&steamid=' + qParams[0].name + '&format=json';
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			console.log(body);
+			res.send(body);
+		}
+	});	
+});
 
 
 app.get('/auth/spotify', passport.authenticate('spotify'));
