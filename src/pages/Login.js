@@ -103,6 +103,7 @@ const [password, setPassword] = useState('')
 		if (data.user) {
 			localStorage.setItem('token', data.user)
 			alert('Login successful')
+      //TODO check location href based on /hasAPI
 			window.location.href = '/ConnectionRequired'
 		} else {
 			alert('Please check your username and password')
