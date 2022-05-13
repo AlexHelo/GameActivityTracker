@@ -1,8 +1,9 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
-const User = require('../models/User')
+var url = "mongodb://localhost:27017";
 
-//jasmine spec/jas_users_test.spec.js
+const jwt = require("jsonwebtoken");
+
+//jasmine spec/jas_backend_test.spec.js
 
 describe('init test:', ()=>{
     it('This test should explicitly fail', function() {
@@ -13,6 +14,7 @@ describe('init test:', ()=>{
         expect(1).toBe(1);   
     })
 });
+
 
 //Tests crear
 describe('User.createInstance //', ()=>{
@@ -25,12 +27,12 @@ describe('User.createInstance //', ()=>{
             var objs = [{ name: "Test", password: "root", level: "SuperAdmin" }];
             
             //Crear Db
-            dbo.collection("users").insertMany(objs, async function(err, res) {
+            dbo.collection("users").insertMany(objs, function(err, res) {
                 if (err) throw err;
                 db.close();
             }); 
 
-            var querry= dbo.collection("users").findOne({name: "Test"}, async function(err, res) {
+            var querry= dbo.collection("users").findOne({name: "Test"}, function(err, res) {
                 if (err) throw err;
 
                 expect(querry.name).toBe("Test");
@@ -63,7 +65,7 @@ describe('User.delete //', ()=>{
             });
 
             //Comprobar que se borró
-            var querry= dbo.collection("users").findOne({name: "Test"}, async function(err, res) {
+            var querry= dbo.collection("users").findOne({name: "Test"}, function(err, res) {
                 if (err) throw err;
 
                 expect(querry.name).toBe(undefined);
@@ -74,15 +76,5 @@ describe('User.delete //', ()=>{
 
             done()
         });
-    })
-});
-
-//Tests Login
-describe('Login & LogOut //', ()=>{
-    it('Iniciar sesión y cerrar sesión', (done)=>{
-
-        expect(1).toBe(1);
-        done()
-
     })
 });
