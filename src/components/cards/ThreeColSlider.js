@@ -67,7 +67,7 @@ const Text = tw.div`ml-2 text-sm font-semibold text-gray-800`;
 const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6`;
 export default ({
   heading = "Gamers",
-  cards = [
+
     {
       imageSrc: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
       title: "Wyatt Residency",
