@@ -46,7 +46,7 @@ describe('User.createInstance //', ()=>{
 
 //Tests Borrar
 describe('User.delete //', ()=>{
-    it('Crea borra una isntancia de usuario de la Bd', (done)=>{
+    it('Crea borra una instancia de usuario de la Bd', (done)=>{
         MongoClient.connect(url, function(err, db) {
             
             if (err) throw err;
