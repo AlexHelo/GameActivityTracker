@@ -25,8 +25,7 @@ export default () => {
   var gamesInfo = []
   
   var yourGames = []
-  RecentGames(userId)
-  AddYourGames(gamesInfo)
+  RecentGames(userId).then(AddYourGames(gamesInfo))
 
   async function RecentGames(userKey) {
     await fetch("http://localhost:3001/getrecentlyplayed?"+userKey)
@@ -37,20 +36,20 @@ export default () => {
     recentGames.forEach(game => {
       fetch("http://localhost:3001/getGameInfo?"+game.appid)
       .then(response => response.json())
-      .then(check => gamesInfo.push(check[game.appid].data))  
+      .then(check => gamesInfo.push(check[game.appid].data))
     });
     //console.log(gamesInfo)
   }
 
   function AddYourGames(info){
     console.log(info)
-    info.forEach(game => {
+    Object.entries(info).forEach(game => {
       console.log("F")
       yourGames.push({
         imageSrc: game.header_image,
         title: game.name,
         description: game.short_description,
-        genre : [game.genre[0],game.genre[1],game.genre[2]],
+        genre : [game.categories[0],game.categories[1],game.categories[2]],
         type	: game.type})
     });
   }
