@@ -5,9 +5,9 @@ const cors = require("cors");
 const UserModel = require("./models/User");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-
 
 var passport = require('passport')
   , util = require('util')
@@ -16,6 +16,7 @@ var passport = require('passport')
   , SteamStrategy = require('passport-steam').Strategy
   , authRoutes = require('./routes/auth')
   , request = require('request');
+
 
 app.use(express.json());
 app.use(cors());
@@ -26,6 +27,7 @@ app.use(session({
   saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -63,14 +65,17 @@ passport.use(new SteamStrategy({
   apiKey: '3187604900E3A919C6CCB848D996D1AB',
 },
 function(identifier, profile, done) {
+
   User.findOrCreate({ email: identifier, 
     password: "testo",
     level: "user" }, 
   
+
   process.nextTick(function () {
     console.log(identifier)
     profile.identifier = identifier;
     return done(null, profile);
+
   }));
 }
 ));
@@ -102,6 +107,7 @@ passport.use(
     }
   )
 );
+
 
 app.use(session({
     secret: 'your secret',
@@ -248,9 +254,6 @@ app.get("/superadmin-query", async (req, res) => {
     res.send(result);
   });
 });
-
-
-
 
 app.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;

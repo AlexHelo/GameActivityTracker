@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const findOrCreate = require("mongoose-findorcreate");
 
 const UserSchema = new mongoose.Schema({
@@ -11,6 +12,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
     SteamID:{
         type: String,
         required: false
