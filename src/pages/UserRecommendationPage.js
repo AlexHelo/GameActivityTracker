@@ -22,8 +22,30 @@ export default () => {
   const HighlightedTextInverse = tw.span`bg-gray-100 text-primary-500 px-4 transform -skew-x-12 inline-block`;
   const Description = tw.span`inline-block mt-8`;
   const imageCss = tw`rounded-4xl`;
+  //const cardInfo = 
+  var userId= '76561198020735370'
+  RecentGames(userId)
 
-  
+  async function RecentGames(userKey) {
+    var res = await fetch("http://localhost:3001/getrecentlyplayed?"+userKey
+  )
+    //.then((resp)=> {console.log(resp)})
+    console.log(res.json())
+    return res;
+
+		//const data = await response.json()
+    //console.log(data)
+
+		/*if (data.user) {  
+			localStorage.setItem('token', data.user)
+			alert('Login successful')
+			window.location.href = '/dashboard'
+		} else {
+			alert('Please check your username and password')
+		}*/
+  }
+
+
   //Test
   return (
     <AnimationRevealPage>

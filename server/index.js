@@ -7,13 +7,14 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const { debug } = require("console");
+
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
   //, SteamStrategy = require('./lib/passport-steam/index').Strategy
   , SteamStrategy = require('passport-steam').Strategy
-  , authRoutes = require('./routes/auth');
+  , authRoutes = require('./routes/auth')
+  , request = require('request');
 
 app.use(express.json());
 app.use(cors());
@@ -24,7 +25,25 @@ app.use(session({
   saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+app.get('/getrecentlyplayed', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+var url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3187604900E3A919C6CCB848D996D1AB&steamid=' + qParams[0].name + '&format=json';
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			console.log(body);
+			res.send(body);
+		}
+	});	
+});
 
 
 app.get('/auth/spotify', passport.authenticate('spotify'));
@@ -157,6 +176,8 @@ app.post("/user-create", async (req, res) => {
     await User.create({
       email: req.body.email,
       password: req.body.password,
+      SpotifyID: null,
+      SteamID: null,
       level: req.body.level,
     })
     res.json({status:'ok'})
@@ -207,6 +228,17 @@ app.get("/admin-query", async (req, res) => {
   });
 });
 
+app.post("/hasAPI", async (req, res) => {
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  if(user.SteamID != null && user.SpotifyID != null){
+    return res.json({status: 'OK'})
+  } else {
+    return res.json({status: 'error'})
+}
+});
+
 app.get("/superadmin-query", async (req, res) => {
   UserModel.find({}, (err, result) => {
     if (err) {
@@ -216,6 +248,9 @@ app.get("/superadmin-query", async (req, res) => {
     res.send(result);
   });
 });
+
+
+
 
 app.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;

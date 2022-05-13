@@ -108,6 +108,8 @@ import SuperAdminPage  from "pages/SuperAdminPage.js";
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";
 
+import ConnectionRequired from "pages/ConnectionRequired";
+
 import ThankYouPage from "ThankYouPage.js";
 import userController from "controllers/userController"
 import { User_create_normal_User } from "controllers/userController";
@@ -122,6 +124,9 @@ export default function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/ConnectionRequired">
+          <ConnectionRequired />
+        </Route>
         <Route path="/components/:type/:subtype/:name">
           <ComponentRenderer />
         </Route>
