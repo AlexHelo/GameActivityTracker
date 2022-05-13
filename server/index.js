@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+
+
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
@@ -173,6 +175,8 @@ app.post("/user-create", async (req, res) => {
     await User.create({
       email: req.body.email,
       password: req.body.password,
+      SpotifyID: null,
+      SteamID: null,
       level: req.body.level,
     })
     res.json({status:'ok'})
@@ -224,6 +228,17 @@ app.get("/admin-query", async (req, res) => {
   });
 });
 
+app.post("/hasAPI", async (req, res) => {
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  if(user.SteamID != null && user.SpotifyID != null){
+    return res.json({status: 'OK'})
+  } else {
+    return res.json({status: 'error'})
+}
+});
+
 app.get("/superadmin-query", async (req, res) => {
   UserModel.find({}, (err, result) => {
     if (err) {
@@ -233,6 +248,9 @@ app.get("/superadmin-query", async (req, res) => {
     res.send(result);
   });
 });
+
+
+
 
 app.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;

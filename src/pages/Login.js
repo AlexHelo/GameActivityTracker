@@ -103,7 +103,7 @@ const [password, setPassword] = useState('')
 		if (data.user) {
 			localStorage.setItem('token', data.user)
 			alert('Login successful')
-			window.location.href = '/dashboard'
+			window.location.href = '/ConnectionRequired'
 		} else {
 			alert('Please check your username and password')
 		}
@@ -141,20 +141,7 @@ return (
                   <HighlightedText>Sign Up</HighlightedText>
                 </a>
                 <br></br>
-                Or use one of our partners:
               </p>
-              <br></br>
-              <SocialButtonsContainer>
-                {socialButtons.map((socialButton, index) => (
-                  <SocialButton key={index} href={socialButton.url}>
-                    <span className="iconContainer">
-                      <img src={socialButton.iconImageSrc} className="icon" alt=""/>
-                    </span>
-                    <span className="text">{socialButton.text}</span>
-                  </SocialButton>
-                ))}
-              </SocialButtonsContainer>
-
             </FormContainer>
           </MainContent>
         </MainContainer>

@@ -11,6 +11,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    SteamID:{
+        type: String,
+        required: false
+    },
+    SpotifyID:{
+        type: String,
+        required: false
+    },
     level:{
         type: String,
         required: true
