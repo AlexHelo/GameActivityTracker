@@ -2,7 +2,7 @@ import React from "react";
 import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import Hero from "components/hero/TwoColumnWithVideo.js";
+import Hero from "components/hero/BackgroundAsImageWithCenteredContent";
 import Features from "components/features/ThreeColSimple.js";
 import MainFeature from "components/features/TwoColWithButton.js";
 import MainFeature2 from "components/features/TwoColSingleFeatureWithStats2.js";
@@ -12,8 +12,6 @@ import DownloadApp from "components/cta/DownloadApp.js";
 import Footer from "components/footers/MiniCenteredFooter";
 
 import goku from "images/7.png";
-import doomE from "images/9.jpg"
-import smash from "images/4.jpg"
 
 export default () => {
   const Subheading = tw.span`tracking-wider text-sm font-medium`;
@@ -23,25 +21,38 @@ export default () => {
   const imageCss = tw`rounded-4xl`;
   //const cardInfo = 
   var userId= '76561198020735370'
+  var recentGames
+  var gamesInfo = []
+  
+  var yourGames = []
   RecentGames(userId)
+  AddYourGames(gamesInfo)
 
   async function RecentGames(userKey) {
-    var res = await fetch("http://localhost:3001/getrecentlyplayed?"+userKey
-  )
-    //.then((resp)=> {console.log(resp)})
-    console.log(res.json())
-    return res;
+    await fetch("http://localhost:3001/getrecentlyplayed?"+userKey)
+    .then(response => response.json())
+    .then(data =>  data.response)
+    .then(games => recentGames = games.games)
+    //console.log(recentGames)
+    recentGames.forEach(game => {
+      fetch("http://localhost:3001/getGameInfo?"+game.appid)
+      .then(response => response.json())
+      .then(check => gamesInfo.push(check[game.appid].data))  
+    });
+    //console.log(gamesInfo)
+  }
 
-		//const data = await response.json()
-    //console.log(data)
-
-		/*if (data.user) {  
-			localStorage.setItem('token', data.user)
-			alert('Login successful')
-			window.location.href = '/dashboard'
-		} else {
-			alert('Please check your username and password')
-		}*/
+  function AddYourGames(info){
+    console.log(info)
+    info.forEach(game => {
+      console.log("F")
+      yourGames.push({
+        imageSrc: game.header_image,
+        title: game.name,
+        description: game.short_description,
+        genre : [game.genre[0],game.genre[1],game.genre[2]],
+        type	: game.type})
+    });
   }
 
 
@@ -66,44 +77,7 @@ export default () => {
             Check your <HighlightedText>recommendations.</HighlightedText>
           </>
         }
-
-      />
-      <MainFeature2
-        subheading={<Subheading>An ever growing community</Subheading>}
-        heading={<>Why are we <HighlightedText>your best option?</HighlightedText></>}
-        description = {
-        <Description>
-          We use an algorithm that finds songs related to your <HighlightedText>player profile.</HighlightedText>
-          <br></br>
-          To do this we have to know what <HighlightedText>type of gamer</HighlightedText> you are and what games you are most looking to play.
-        </Description>}
-        statistics={[
-          {
-            key: "Hours played",
-            value: "94000+",
-          },
-          {
-            key: "Players",
-            value: "1100+"
-          },
-          {
-            key: "Recomendations",
-            value: "15000+"
-          }
-        ]}
-        primaryButtonText="Sign up"
-        primaryButtonUrl = "/Signup"
-        imageInsideDiv={false}
-        imageSrc= {smash}
-        imageCss={Object.assign(tw`bg-cover`, imageCss)}
-        imageContainerCss={tw`md:w-1/2 h-auto`}
-        imageDecoratorBlob={true}
-        imageDecoratorBlobCss={tw`left-1/2 md:w-32 md:h-32 -translate-x-1/2 opacity-25`}
-        textOnLeft={true}
-      />
-      <Testimonial
-        subheading=""
-        heading={<>Gamers <HighlightedText>Love Us.</HighlightedText></>}
+        cards = {yourGames}
       />
       <Footer />
     </AnimationRevealPage>

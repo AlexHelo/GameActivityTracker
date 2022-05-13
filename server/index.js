@@ -30,19 +30,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/getrecentlyplayed', function(req, res) {
-	var qParams = [];
-	for (var p in req.query) {
-		qParams.push({'name':p, 'value':req.query[p]})
-	}
-var url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3187604900E3A919C6CCB848D996D1AB&steamid=' + qParams[0].name + '&format=json';
-	request(url, function(err, response, body) {
-		if(!err && response.statusCode < 400) {
-			console.log(body);
-			res.send(body);
-		}
-	});	
-});
+
 
 
 app.get('/auth/spotify', passport.authenticate('spotify'));
@@ -72,6 +60,48 @@ function(identifier, profile, done) {
   }));
 }
 ));
+
+app.get('/getrecentlyplayed', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+var url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3187604900E3A919C6CCB848D996D1AB&steamid=' + qParams[0].name + '&format=json';
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			//console.log(body);
+			res.send(body);
+		}
+	});	
+});
+
+app.get('/getglobalstats', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+	var url = ' http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/?format=json&appid=' + qParams[0].name + '&count=1&name[0]=' + qParams[0].value;
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			console.log(body);
+			res.send(body);
+		}
+	});	
+});
+
+app.get('/getGameInfo', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+var url = 'https://store.steampowered.com/api/appdetails?appids=' + qParams[0].name;
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			//console.log(body);
+			res.send(body);
+		}
+	});	
+});
 
 app.get(
   '/auth/spotify/callback',
