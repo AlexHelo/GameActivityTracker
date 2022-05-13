@@ -30,21 +30,21 @@ export default ({
       imageSrc:
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.25&w=512&h=512&q=80",
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+        "It's pretty cool. It's just really fun. The songs get harder as you listen more to them, allowing your skills to develop with the game. The mechanics are simple and easy to remember. All around, this is a pretty solid website.",
       customerName: "Charlotte Hale"
     },
     {
       imageSrc:
         "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=512&h=512&q=80",
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+        "I love the esthetics and the songs, If you like music and games this one is for you, It is also great that you feel like you are immersed in the experience. I recommend this website.",
       customerName: "Adam Cuppy"
     },
     {
       imageSrc:
         "https://images.unsplash.com/photo-1580852300654-03c803a14e24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4.25&w=512&h=512&q=80",
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+        "This is the best music project I've touched in a while, I just cannot stop using this site, the music is eargasmic, the UI is good, the recommendations are really great and I can't wait to see where this app is taken to. Definitely pick it up if you're interested in listening to your own music while playing games",
       customerName: "Steven Marcetti"
     }
   ]

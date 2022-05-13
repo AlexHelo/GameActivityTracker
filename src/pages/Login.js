@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -6,8 +6,10 @@ import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/login-illustration.png";
 import logo from "images/logo.png";
-import googleIconImageSrc from "images/google-icon.png";
-import twitterIconImageSrc from "images/twitter-icon.png";
+//import googleIconImageSrc from "images/google-icon.png";
+//import twitterIconImageSrc from "images/twitter-icon.png";
+import steamIconImageSrc from "images/Steam_icon.png";
+import spotifyIconImageSrc from "images/Spotify_icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
@@ -21,12 +23,12 @@ const FormContainer = tw.div`w-full flex-1 mt-8`;
 
 const SocialButtonsContainer = tw.div`flex flex-col items-center`;
 const SocialButton = styled.a`
-  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
+  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 bg-primary-500 text-gray-100 hocus:bg-primary-500 hocus:bg-primary-500 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
   .iconContainer {
-    ${tw`bg-white p-2 rounded-full`}
+    ${tw`bg-primary-500 p-2 rounded-full`}
   }
   .icon {
-    ${tw`w-4`}
+    ${tw`w-6`}
   }
   .text {
     ${tw`ml-4`}
@@ -54,20 +56,20 @@ const IllustrationImage = styled.div`
 `;
 const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
 
-export default ({
+export default function Login ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
   headingText = "",
   socialButtons = [
     {
-      iconImageSrc: googleIconImageSrc,
-      text: "Sign In With Google",
-      url: "https://google.com"
+      iconImageSrc: steamIconImageSrc,
+      text: "Sign In With Steam",
+      url: "http://localhost:3001/auth/steam/"
     },
     {
-      iconImageSrc: twitterIconImageSrc,
-      text: "Sign In With Twitter",
-      url: "https://twitter.com"
+      iconImageSrc: spotifyIconImageSrc,
+      text: "Sign In With Spotify",
+      url: "http://localhost:3001/auth/spotify/"
     }
   ],
   submitButtonText = "Sign In",
@@ -75,7 +77,40 @@ export default ({
   forgotPasswordUrl = "#",
   signupUrl = "/Signup",
 
-}) => (
+  
+
+}) {
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+
+	async function loginUser(event) {
+		event.preventDefault()
+
+		const response = await fetch('http://localhost:3001/user-login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+			}),SubmitButton
+		})
+
+		const data = await response.json()
+
+
+		if (data.user) {
+			localStorage.setItem('token', data.user)
+			alert('Login successful')
+      //TODO check location href based on /hasAPI
+			window.location.href = '/ConnectionRequired'
+		} else {
+			alert('Please check your username and password')
+		}
+	}
+
+return (
   <AnimationRevealPage>
     <Container>
       <Content>
@@ -86,24 +121,27 @@ export default ({
           <MainContent>
             <Heading>{<>Sign In To <HighlightedText>GameChord</HighlightedText></>}</Heading>
             <FormContainer>
-              <Form>
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
+              <Form onSubmit={loginUser}>
+                <Input type="email"  placeholder="Email"
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }} />
+                <Input type="password" placeholder="Password" onChange={(event) => {
+                  setPassword(event.target.value);
+                }}/>
                 <SubmitButton type="submit">
                   <SubmitButtonIcon className="icon" />
                   <span className="text">{submitButtonText}</span>
                 </SubmitButton>
               </Form>
               <p tw="mt-6 text-xs text-gray-600 text-center">
-                <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
-                  Forgot Password ?
-                </a>
               </p>
               <p tw="mt-8 text-sm text-gray-600 text-center">
                 Dont have an account?{" "}
                 <a href={signupUrl} tw="border-b border-gray-500 border-dotted">
-                  Sign Up
+                  <HighlightedText>Sign Up</HighlightedText>
                 </a>
+                <br></br>
               </p>
             </FormContainer>
           </MainContent>
@@ -115,3 +153,4 @@ export default ({
     </Container>
   </AnimationRevealPage>
 );
+}

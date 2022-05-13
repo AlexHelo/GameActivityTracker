@@ -1,4 +1,4 @@
-const Database = require('../database/database')
+/*const Database = require('../database/database')
 
 exports.User_List = function(req, res){
     Database.AllUsers()
@@ -100,4 +100,4 @@ exports.SuperAdmin_update_normal_User = function(req,res){
         .then(() => {
             res.redirect('/')
         });
-}
+}*/

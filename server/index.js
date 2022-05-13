@@ -5,12 +5,18 @@ const cors = require("cors");
 const UserModel = require("./models/User");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+
+const SpotifyStrategy = require('passport-spotify').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
   //, SteamStrategy = require('./lib/passport-steam/index').Strategy
   , SteamStrategy = require('passport-steam').Strategy
-  , authRoutes = require('./routes/auth');
+  , authRoutes = require('./routes/auth')
+  , request = require('request');
+
 
 app.use(express.json());
 app.use(cors());
@@ -21,6 +27,29 @@ app.use(session({
   saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get('/getrecentlyplayed', function(req, res) {
+	var qParams = [];
+	for (var p in req.query) {
+		qParams.push({'name':p, 'value':req.query[p]})
+	}
+var url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=3187604900E3A919C6CCB848D996D1AB&steamid=' + qParams[0].name + '&format=json';
+	request(url, function(err, response, body) {
+		if(!err && response.statusCode < 400) {
+			console.log(body);
+			res.send(body);
+		}
+	});	
+});
+
+
+app.get('/auth/spotify', passport.authenticate('spotify'));
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -36,13 +65,49 @@ passport.use(new SteamStrategy({
   apiKey: '3187604900E3A919C6CCB848D996D1AB',
 },
 function(identifier, profile, done) {
+
+  User.findOrCreate({ email: identifier, 
+    password: "testo",
+    level: "user" }, 
+  
+
   process.nextTick(function () {
     console.log(identifier)
     profile.identifier = identifier;
     return done(null, profile);
-  });
+
+  }));
 }
 ));
+
+app.get(
+  '/auth/spotify/callback',
+  passport.authenticate('spotify', { failureRedirect: 'http://localhost:3000/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('http://localhost:3000/');
+  }
+);
+
+
+passport.use(
+  new SpotifyStrategy(
+    {
+      clientID: "3d133132c4ca4a499febaa0a907c23d2",
+      clientSecret: "25249af674c641dca0a2361c8f483abc",
+      callbackURL: 'http://localhost:3001/auth/spotify/callback'
+    },
+    function(accessToken, refreshToken, expires_in, profile, done) {
+      User.findOrCreate({ email: profile.id, 
+                    password: "test",
+                    level: "user" }, 
+        function(err, user) {
+        return done(err, user);
+      });
+    }
+  )
+);
+
 
 app.use(session({
     secret: 'your secret',
@@ -116,6 +181,8 @@ app.post("/user-create", async (req, res) => {
     await User.create({
       email: req.body.email,
       password: req.body.password,
+      SpotifyID: null,
+      SteamID: null,
       level: req.body.level,
     })
     res.json({status:'ok'})
@@ -165,6 +232,17 @@ app.get("/admin-query", async (req, res) => {
 
     res.send(result);
   });
+});
+
+app.post("/hasAPI", async (req, res) => {
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  if(user.SteamID != null && user.SpotifyID != null){
+    return res.json({status: 'OK'})
+  } else {
+    return res.json({status: 'error'})
+}
 });
 
 app.get("/superadmin-query", async (req, res) => {

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
-
+import jwt from 'jsonwebtoken'
 import logo from "../../images/logo.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
@@ -70,16 +70,76 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-  const defaultLinks = [
-    <NavLinks key={1}>
-      <NavLink href="/AboutUs">About</NavLink>
-      <NavLink href="/ContactUs">Contact Us</NavLink>
-      <NavLink href="/Login" tw="lg:ml-12!">
-        Login
-      </NavLink>
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
-    </NavLinks>
-  ];
+
+
+const logout = () =>{
+  localStorage.removeItem('token')
+  window.location.reload(false);
+
+
+}
+var UserLoginLevel = "none"
+const token = localStorage.getItem('token')
+if (token){
+  const user = jwt.decode(token)
+  UserLoginLevel= user.level
+}
+else {
+const UserLoginLevel= "none"
+
+}
+
+
+
+switch(UserLoginLevel){
+  case "superadmin":
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+
+        <NavLink href="/SuperAdminPage">SuperAdmin Page</NavLink>
+
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="#"onClick={logout}>Sign Out</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+  case "admin":
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+
+        <NavLink href="/AdminPage">Admin Page</NavLink>
+
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="#"onClick={logout}>Sign Out</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+    case "user":
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Recommendations">Recomendations</PrimaryLink>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+        
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="#"onClick={logout}>Sign Out</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+  default:
+    var defaultLinks = [
+      <NavLinks key={1}>
+        <NavLink href="/AboutUs">About</NavLink>
+        <NavLink href="/ContactUs">Contact Us</NavLink>
+        <NavLink href="/Login" tw="lg:ml-12!">Login</NavLink>
+
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/Signup">Sign Up</PrimaryLink>
+      </NavLinks>
+    ];
+    break;
+}
+
 
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];

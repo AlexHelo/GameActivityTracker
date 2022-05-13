@@ -97,12 +97,19 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import PricingPage from "pages/Pricing.js";
  import AboutUsPage from "pages/AboutUs.js";
  import ContactUsPage from "pages/ContactUs.js";
+ import UserRecommendationPage from "pages/UserRecommendationPage";
 // import BlogIndexPage from "pages/BlogIndex.js";
  import TermsOfServicePage from "pages/TermsOfService.js";
-// import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
+ import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
+
+import AdminPage  from "pages/AdminPage.js";
+import SuperAdminPage  from "pages/SuperAdminPage.js";
 
 import ComponentRenderer from "ComponentRenderer.js";
 import MainLandingPage from "MainLandingPage.js";
+
+import ConnectionRequired from "pages/ConnectionRequired";
+
 import ThankYouPage from "ThankYouPage.js";
 import userController from "controllers/userController"
 import { User_create_normal_User } from "controllers/userController";
@@ -117,6 +124,9 @@ export default function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/ConnectionRequired">
+          <ConnectionRequired />
+        </Route>
         <Route path="/components/:type/:subtype/:name">
           <ComponentRenderer />
         </Route>
@@ -125,6 +135,9 @@ export default function App() {
         </Route>
         <Route path="/user/create">
           <User_create_normal_User/>
+        </Route>
+        <Route path="/Recommendations">
+          <UserRecommendationPage />
         </Route>
         <Route path="/AboutUs">
           <AboutUsPage />
@@ -140,6 +153,15 @@ export default function App() {
         </Route>
         <Route path="/TermsOfService">
           <TermsOfServicePage />
+        </Route>
+        <Route path="/AdminPage">
+          <AdminPage />
+        </Route>
+        <Route path="/SuperAdminPage">
+          <SuperAdminPage />
+        </Route>
+        <Route path="/PrivacyPolicy">
+          <PrivacyPolicyPage />
         </Route>
         <Route path="/">
           <MainLandingPage />

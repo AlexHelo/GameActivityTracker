@@ -11,8 +11,8 @@ import { ReactComponent as GithubIcon } from "images/github-icon.svg";
 
 import robert from "images/Robert.jpg"
 
-//import nacho from "images/Ignacio.jpg"
-//import pepe from "images/Pepe.jpg"
+import nacho from "images/Nacho.jpg"
+import pepe from "images/Pepe.png"
 import alex from "images/Alex.jpg"
 
 const HeadingContainer = tw.div``
@@ -32,7 +32,7 @@ const CardContent = styled.div`
     ${tw`uppercase font-bold tracking-widest text-xs text-primary-500`}
   }
   .name {
-    ${tw`mt-1 text-xl font-medium text-gray-900`}
+    ${tw`mt-1 text-xl font-medium text-white`}
   9
 `
 
@@ -49,7 +49,7 @@ const CardLinks = styled.div`
 export default ({
   heading = "Meet These Fine Folks.",
   subheading = "Our Team",
-  description = "We are students at the Monterrey Institute of Technology and Higher Education (ITSM) currently working on the integrator project for the subject of Web Laboratory TC3052.1.",
+  description = "We are students at the Instituto Tecnológico de Estudios Superiores de Monterrey Campus Ciudad de México (ITESM) currently working on the integrator project for the subject of Web Laboratory TC3052.1.",
   cards = [
     {
       imageSrc: robert,
@@ -67,7 +67,7 @@ export default ({
       ],
     },
     {
-      imageSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
+      imageSrc: nacho,
       position: "Programer",
       name: "Ignacio Alvarado Reyes",
       links: [
@@ -82,9 +82,9 @@ export default ({
       ],
     },
     {
-      imageSrc: "https://images.unsplash.com/photo-1517070208541-6ddc4d3efbcb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&facepad=2.95&w=512&h=512&q=80",
+      imageSrc: pepe,
       position: "Programer",
-      name: "Jose Antonio Berron Gutierres",
+      name: "Jose Antonio Berron Gutiérrez",
       links: [
         {
           url: "https://linkedin.com",
