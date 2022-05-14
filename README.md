@@ -24,3 +24,7 @@ To install the backend change directory to the server folder and run the command
 To run the backend use  the command
 ### `npm run devstart`
 To run it with nodemon which runs on [http://localhost:3001](http://localhost:3001)
+
+## Run unit tests
+To run the unit tests use the command in the project directory:
+### `jasmine spec/jas_users_test.spec.js`

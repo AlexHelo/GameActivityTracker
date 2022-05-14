@@ -75,9 +75,8 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 const logout = () =>{
   localStorage.removeItem('token')
   window.location.reload(false);
-
-
 }
+
 var UserLoginLevel = "none"
 const token = localStorage.getItem('token')
 if (token){
@@ -86,10 +85,7 @@ if (token){
 }
 else {
 const UserLoginLevel= "none"
-
 }
-
-
 
 switch(UserLoginLevel){
   case "superadmin":
