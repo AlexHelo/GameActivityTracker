@@ -177,7 +177,7 @@ app.get('/auth/steam',
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('http://localhost:3000/');
   });
 
 app.listen(3002);
