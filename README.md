@@ -27,4 +27,7 @@ To run it with nodemon which runs on [http://localhost:3001](http://localhost:30
 
 ## Run unit tests
 To run the unit tests use the command in the project directory:
-### `jasmine spec/jas_users_test.spec.js`
+### Front-end
+### `jasmine src/spec/jas_login_test.spec.js`
+### Back-end
+### `jasmine spec/jas_backend_test.spec.js`
