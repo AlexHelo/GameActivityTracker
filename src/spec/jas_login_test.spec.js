@@ -1,4 +1,4 @@
-var MongoClient = require('../../server/node_modules/mongodb').MongoClient;
+var MongoClient = require('../../server/node_modules/mongodb/mongodb').MongoClient;
 var url = "mongodb://localhost:27017";
 
 const User = require("../../server/models/User");
