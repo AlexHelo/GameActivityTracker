@@ -21,19 +21,19 @@ describe('init test:', ()=>{
 describe('User Login //', ()=>{
     it('Login de un usuario Normal', (done)=>{
 
-        MongoClient.connect(url, function(err, db) {
-            
+        MongoClient.connect(url, function(err, db) { 
             if (err) throw err;
 
             var dbo = db.db("testMongo");
-            var objs = [{ name: "Test", password: "root", level: "SuperAdmin" }];
+            var objs = { name: "Test", email:"t@t.com",password: "root", level: "SuperAdmin" };
             
-            //Crear Db
-            dbo.collection("users").insertMany(objs, function(err, res) {
+            //Insertar un usuario
+            dbo.collection("users").insertOne(objs, function(err, res) {
                 if (err) throw err;
                 db.close();
             }); 
 
+            //verificar que el usuario exsista
             var querry= dbo.collection("users").findOne({name: "Test"}, function(err, res) {
                 if (err) throw err;
 
@@ -42,14 +42,14 @@ describe('User Login //', ()=>{
                 db.close();
             }); 
         });
-
+       
         const user = User.findOne({ 
-            email: "test@test.com",
+            email: "t@t.com",
             password: "root",
-        })
+        }) 
         
+        //Crear Token
         var token = ""
-
         if (user) {
             token = jwt.sign({
                 name: user.name, 
@@ -59,12 +59,14 @@ describe('User Login //', ()=>{
         } else {
             fail("No user found")
         }
+        console.log(user)
+        console.log(token)
 
+        //Encontrar al usuario a travez de la token
         if (token){
           const userToken = jwt.decode(token)
-
+          console.log(userToken)
           expect(userToken.name).toBe("Test");
-
         }else {
             fail("No token");
         }
