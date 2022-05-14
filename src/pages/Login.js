@@ -11,6 +11,8 @@ import logo from "images/logo.png";
 import steamIconImageSrc from "images/Steam_icon.png";
 import spotifyIconImageSrc from "images/Spotify_icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
+import jwt from "jsonwebtoken";
+
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-gray-900 text-white shadow sm:rounded-lg flex justify-center flex-1`;
@@ -103,8 +105,40 @@ const [password, setPassword] = useState('')
 		if (data.user) {
 			localStorage.setItem('token', data.user)
 			alert('Login successful')
-      //TODO check location href based on /hasAPI
-			window.location.href = '/ConnectionRequired'
+
+
+      //TODO add query to verify in the backend, never expose tokens
+      const decoded = jwt.verify(data.user, 'KVwL2amj9C');
+
+      // decoded jwt with unsafe frontend token
+      const email = decoded.email
+      const test = JSON.stringify({
+        email
+      })
+
+      const APIresponse = await fetch('http://localhost:3001/hasAPI', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email
+        })
+      })
+
+      // Reponse from API. Checks if API tokens are linked or not. error if not linked, OK if linked
+      const APIdata = await APIresponse.json()
+
+
+      if (APIdata.status == "error"){
+        window.location.href = '/ConnectionRequired'
+      }
+      else if (APIdata.status == "OK"){
+        window.location.href = '/dashboard'
+      } else {
+        window.location.href = '/ERROR'
+      }
+     
 		} else {
 			alert('Please check your username and password')
 		}

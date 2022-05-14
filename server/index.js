@@ -111,6 +111,7 @@ app.get(
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('http://localhost:3000/');
+    console.log(req)
   }
 );
 
@@ -118,15 +119,23 @@ app.get(
 passport.use(
   new SpotifyStrategy(
     {
+
+      //TODO add tokens to .env
       clientID: "3d133132c4ca4a499febaa0a907c23d2",
       clientSecret: "25249af674c641dca0a2361c8f483abc",
       callbackURL: 'http://localhost:3001/auth/spotify/callback'
+
+
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
+      console.log(profile)
+
+
       User.findOrCreate({ email: profile.id, 
                     password: "test",
                     level: "user" }, 
         function(err, user) {
+        console.log(user)
         return done(err, user);
       });
     }
@@ -253,12 +262,33 @@ app.get("/admin-query", async (req, res) => {
     if (err) {
       console.log(err);
     }
-
     res.send(result);
   });
 });
 
 app.post("/hasAPI", async (req, res) => {
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  if(user.SteamID != null && user.SpotifyID != null){
+    return res.json({status: 'OK'})
+  } else {
+    return res.json({status: 'error'})
+}
+});
+
+app.post("/hasAPI", async (req, res) => {
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  if(user.SteamID != null && user.SpotifyID != null){
+    return res.json({status: 'OK'})
+  } else {
+    return res.json({status: 'error'})
+}
+});
+
+app.post("/saveAPI", async (req, res) => {
   const user = await User.findOne({ 
     email: req.body.email,
   })
