@@ -25,7 +25,7 @@ const ThreeColumnContainer = styled.div`
 `;
 const Heading = tw(SectionHeading)`w-full`;
 
-const PrimaryButton = tw(PrimaryButtonBase)`px-40 py-10 mt-20 md:mt-10 text-6xl inline-block mx-auto md:mx-0`;
+const PrimaryButton = tw(PrimaryButtonBase)`px-24 py-10 mt-20 md:mt-10 text-6xl inline-block mx-auto md:mx-0`;
 
 export default () => {
   const Subheading = tw.span`tracking-wider text-sm font-medium`;
@@ -101,7 +101,7 @@ export default () => {
       {!showRecommendations && 
       <Container>
         <ThreeColumnContainer>
-          <Heading>Unveil your <span tw="text-primary-500">Recomendations</span></Heading>
+          <Heading>Unveil your <span tw="text-purple-700">Recomendations</span></Heading>
           <PrimaryButton onClick={()=>{
             setRecomendations();
             }}>Click me!</PrimaryButton>

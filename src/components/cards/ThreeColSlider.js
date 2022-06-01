@@ -79,13 +79,13 @@ const StyledModal = styled(ReactModalAdapter)`
     ${tw`fixed inset-0 z-50`}
   }
   &.ThreeColSliderModal__content {
-    ${tw`xl:mx-auto m-4 sm:m-16 max-w-screen-2xl absolute inset-0 flex justify-center items-center rounded-lg bg-primary-500 outline-none border-solid border-purple-900 border-8`}
+    ${tw`xl:mx-auto m-4 sm:m-16 max-w-screen-2xl absolute inset-0 flex justify-center items-center rounded-lg bg-graybg outline-none border-solid border-purple-900 border-8`}
   }
   .content {
     ${tw`w-full lg:p-16`}
   }
 `;
-const CloseModalButton = tw.button`absolute top-0 right-0 mt-8 mr-8 hocus:text-primary-500`;
+const CloseModalButton = tw.button`absolute top-0 right-0 mt-8 mr-8 hocus:text-purple-700 text-purple-900`;
 
 export default ({
   heading = "Gamers",
@@ -238,7 +238,7 @@ export default ({
           shouldCloseOnOverlayClick={true}
         >
           <CloseModalButton onClick={toggleModal}>
-            <CloseIcon tw="w-6 h-6" />
+            <CloseIcon tw="w-8 h-8" />
           </CloseModalButton>
           <TabGrid
             heading={

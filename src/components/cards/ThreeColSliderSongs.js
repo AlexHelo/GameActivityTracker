@@ -15,8 +15,8 @@ import ReactModalAdapter from "../../helpers/ReactModalAdapter.js";
 import ResponsiveVideoEmbed from "../../helpers/ResponsiveVideoEmbed.js";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
-const Container = tw.div`relative`;
-const Content = tw.div`max-w-screen-lg mx-auto py-16 lg:py-20 text-white`;
+const Container = tw.div`relative min-w-full `;
+const Content = tw.div`w-11/12 bg-clip-padding mx-auto py-16 lg:py-10 text-white `;
 
 const HeadingWithControl = tw.div`flex flex-col items-center sm:items-stretch sm:flex-row justify-between`;
 const Heading = tw(SectionHeading)``;
@@ -27,8 +27,8 @@ const ControlButton = styled(PrimaryButtonBase)`
     ${tw`w-6 h-6`}
   }
 `;
-const PrevButton = tw(ControlButton)``;
-const NextButton = tw(ControlButton)``;
+const PrevButton = tw(ControlButton)`bg-purple-900 hocus:bg-purple-700`;
+const NextButton = tw(ControlButton)`bg-purple-900 hocus:bg-purple-700`;
 
 const CardSlider = styled(Slider)`
   ${tw`mt-16`}
@@ -39,7 +39,7 @@ const CardSlider = styled(Slider)`
     ${tw`h-auto flex justify-center mb-1`}
   }
 `;
-const Card = tw.div`h-full flex! flex-col max-w-3xl sm:rounded-tl-4xl sm:rounded-br-5xl relative bg-graybg`;
+const Card = tw.div`w-7/12 h-full flex! flex-col  sm:rounded-tl-4xl sm:rounded-br-5xl relative bg-graybg border-solid border-purple-900 border-4`;
 const CardImage = styled.div(props => [
   `background-image: url("${props.imageSrc}");`,
   tw`w-full h-56 sm:h-64 bg-cover bg-center rounded sm:rounded-none sm:rounded-tl-4xl`
