@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import tw from "twin.macro";
+//eslint-disable-next-line
+import { css } from "styled-components/macro";
 import styled from "styled-components";
 import { SectionHeading } from "components/misc/Headings";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons";
@@ -9,6 +11,9 @@ import { ReactComponent as CrosshairIcon } from "feather-icons/dist/icons/crossh
 import { ReactComponent as StarIcon } from "feather-icons/dist/icons/star.svg";
 import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chevron-left.svg";
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
+import ReactModalAdapter from "../../helpers/ReactModalAdapter.js";
+import ResponsiveVideoEmbed from "../../helpers/ResponsiveVideoEmbed.js";
+import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-16 lg:py-20`;
@@ -34,7 +39,7 @@ const CardSlider = styled(Slider)`
     ${tw`h-auto flex justify-center mb-1`}
   }
 `;
-const Card = tw.div`h-full flex! flex-col sm:border max-w-sm sm:rounded-tl-4xl sm:rounded-br-5xl relative focus:outline-none`;
+const Card = tw.div`h-full flex! flex-col sm:border max-w-3xl sm:rounded-tl-4xl sm:rounded-br-5xl relative focus:outline-none`;
 const CardImage = styled.div(props => [
   `background-image: url("${props.imageSrc}");`,
   tw`w-full h-56 sm:h-64 bg-cover bg-center rounded sm:rounded-none sm:rounded-tl-4xl`
@@ -62,11 +67,25 @@ const IconContainer = styled.div`
     ${tw`w-3 h-3`}
   }
 `;
-const Text = tw.div`ml-2 text-sm font-semibold text-gray-800`;
+const Text = tw.div`ml-2 text-sm font-semibold text-white`;
 
 const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
 
 const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6`;
+
+const StyledModal = styled(ReactModalAdapter)`
+  &.ThreeColSliderModal__overlay {
+    ${tw`fixed inset-0 z-50`}
+  }
+  &.ThreeColSliderModal__content {
+    ${tw`xl:mx-auto m-4 sm:m-16 max-w-screen-xl absolute inset-0 flex justify-center items-center rounded-lg bg-primary-500 outline-none`}
+  }
+  .content {
+    ${tw`w-full lg:p-16`}
+  }
+`;
+const CloseModalButton = tw.button`absolute top-0 right-0 mt-8 mr-8 hocus:text-primary-500`;
+
 export default ({
   heading = "Gamers",
   cards = [
@@ -101,17 +120,19 @@ export default ({
   ]
 }) => {
   
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const toggleModal = () => setModalIsOpen(!modalIsOpen);
   // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
   const [sliderRef, setSliderRef] = useState(null);
   const sliderSettings = {
     arrows: false,
-    slidesToShow: 3,
+    slidesToShow: 1,
     responsive: [
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         }
       },
 
@@ -126,8 +147,23 @@ export default ({
   
 
   return (
+    <>
     <Container>
       <Content>
+      <StyledModal
+          closeTimeoutMS={300}
+          className="ThreeColSliderModal"
+          isOpen={modalIsOpen}
+          onRequestClose={toggleModal}
+          shouldCloseOnOverlayClick={true}
+        >
+          <CloseModalButton onClick={toggleModal}>
+            <CloseIcon tw="w-6 h-6" />
+          </CloseModalButton>
+          <div className="content">
+            <Text>Gamer Check</Text>
+          </div>
+        </StyledModal>
         <HeadingWithControl>
           <Heading>{heading}</Heading>
           <Controls>
@@ -137,13 +173,13 @@ export default ({
         </HeadingWithControl>
         <CardSlider ref={setSliderRef} {...sliderSettings}>
           {cards.map((card, index) => (
-            <Card key={index}>
+            <Card key={card.title}>
               <CardImage imageSrc={card.imageSrc} />
               <TextInfo>
                 <TitleReviewContainer>
                   <Title>{card.title}</Title>
                   <RatingsInfo>
-                    <HighlightedText>{card.type}</HighlightedText>
+                    <HighlightedText>{card.type == 'game' && 'Game'}</HighlightedText>
                   </RatingsInfo>
                 </TitleReviewContainer>
                 <SecondaryInfoContainer>
@@ -158,12 +194,13 @@ export default ({
                 </SecondaryInfoContainer>
                 <Description>{card.description}</Description>
               </TextInfo>
-              <PrimaryButton>recommendation</PrimaryButton>
+              <PrimaryButton onClick={toggleModal}>Recommendation {card.title}</PrimaryButton>
             </Card>
           ))}
         </CardSlider>
         
       </Content>
     </Container>
+    </>
   );
 };

@@ -38,58 +38,60 @@ export default () => {
   var [recentGames,setRecentGames] = React.useState()
   var [gamesInfo,setGamesInfo] = React.useState([])
   
-  var [yourGames,setYourGames] = React.useState([])
+  //var [yourGames,setYourGames] = React.useState([])
 
   var [showRecommendations, setShowRecommendations] = React.useState(false)
 
   
   function setRecomendations(){
     //RecentGames(userId).then((gamesinfo)=>AddYourGames(gamesinfo))
-    infoGames([569480,1905180])
+    yourRecentGames(userId).then((id)=>infoGames(id)).then((games)=>{
+      console.log(games)
+      AddYourGames(games)
+      setShowRecommendations(true);
+    })
+    //infoGames([569480,1905180])
   }
-  var infoGames = async (gameId) => {
-    let i=0;
+  const yourRecentGames = async (userId) => {
     let codeList=[]
-    for(i;i< gameId.length ;i++){
-        const response = await fetch("http://localhost:3001/getGameInfo?"+gameId)
-        const json = await response.json()
-        console.log(json)
-        codeList.push(json.items[0])
-        console.log({codeList})
-      }
+    //console.log(userId)
+    const response = await fetch("http://localhost:3001/getrecentlyplayed?"+userId)
+    const json = await response.json()
+    //console.log(json.response.games,json.response.games.length)
+    for(var i = 0; i < json.response.games.length; i++){
+        codeList.push(json.response.games[i].appid)
+    }
+    //console.log({codeList})
+    return codeList;
    }
-  async function RecentGames(userKey) {
-    await fetch("http://localhost:3001/getrecentlyplayed?"+userKey)
-    .then(response => response.json())
-    .then(data =>  data.response)
-    .then(games => setRecentGames(games.games) )
-    //console.log(recentGames)
-    recentGames.forEach(game => {
-      fetch("http://localhost:3001/getGameInfo?"+game.appid)
-      .then(response => response.json())
-      .then(check => gamesInfo.push(check[game.appid].data))
-      //.then((gamess)=> {return gamess})
-    });
-    console.log(gamesInfo)
-    return gamesInfo;
-  }
-
+  const infoGames = async (gameId) => {
+    let codeList=[]
+    //console.log(gameId,gameId.length)
+    for(var i = 0; i < gameId.length; i++){
+        const response = await fetch("http://localhost:3001/getGameInfo?"+gameId[i])
+        const json = await response.json()
+        //console.log(json)
+        codeList.push(json[gameId[i]].data)
+        //console.log({codeList})
+      }
+    return codeList;
+   }
   function AddYourGames(info){
-    console.log(info)
+    var gamesListInfo = []
     info.map(game => {
-      console.log("F")
-      yourGames.push({
+      //console.log(game.categories)
+      gamesListInfo.push({
         imageSrc: game.header_image,
         title: game.name,
         description: game.short_description,
-        genre : [game.categories[0],game.categories[1],game.categories[2]],
+        genre : [game.genres[0].description,game.genres[1].description],
         type	: game.type})
     });
+    //console.log(gamesListInfo)
+    setGamesInfo(gamesListInfo)
     
   }
 
-
-  //Test
   return (
     <AnimationRevealPage>
       <Hero
@@ -102,7 +104,6 @@ export default () => {
           <Heading>Unveil your <span tw="text-primary-500">Recomendations</span></Heading>
           <PrimaryButton onClick={()=>{
             setRecomendations();
-            setShowRecommendations(true);
             }}>Click me!</PrimaryButton>
         </ThreeColumnContainer>
       </Container>}
@@ -113,7 +114,7 @@ export default () => {
             Check your <HighlightedText>recommendations.</HighlightedText>
           </>
         }
-        cards = {yourGames}
+        cards = {gamesInfo}
       />}
       <Footer />
     </AnimationRevealPage>
