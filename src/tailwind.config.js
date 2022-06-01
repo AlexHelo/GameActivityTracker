@@ -399,10 +399,11 @@ module.exports = {
       screen: '100vh',
       ...theme('spacing'),
     }),
-    minWidth: {
+    minWidth: (theme) => ({
       '0': '0',
+      half: '50%',
       full: '100%',
-    },
+    }),
     objectPosition: {
       bottom: 'bottom',
       center: 'center',

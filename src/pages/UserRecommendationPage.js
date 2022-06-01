@@ -41,7 +41,7 @@ export default () => {
   //var [yourGames,setYourGames] = React.useState([])
 
   var [showRecommendations, setShowRecommendations] = React.useState(false)
-
+  
   
   function setRecomendations(){
     //RecentGames(userId).then((gamesinfo)=>AddYourGames(gamesinfo))
@@ -111,7 +111,7 @@ export default () => {
       <TabGrid
         heading={
           <>
-            Check your <HighlightedText>recommendations.</HighlightedText>
+            Check your Recent <HighlightedText>Games</HighlightedText>
           </>
         }
         cards = {gamesInfo}
