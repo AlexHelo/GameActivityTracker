@@ -15,8 +15,8 @@ import ReactModalAdapter from "../../helpers/ReactModalAdapter.js";
 import ResponsiveVideoEmbed from "../../helpers/ResponsiveVideoEmbed.js";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
-const Container = tw.div`relative min-w-full `;
-const Content = tw.div`w-11/12 bg-clip-padding mx-auto py-16 lg:py-10 text-white `;
+const Container = tw.div`relative min-w-full`;
+const Content = tw.div`w-11/12 bg-clip-padding mx-auto py-6 md:py-5 text-white `;
 
 const HeadingWithControl = tw.div`flex flex-col items-center sm:items-stretch sm:flex-row justify-between`;
 const Heading = tw(SectionHeading)``;

@@ -76,10 +76,10 @@ const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-fu
 
 const StyledModal = styled(ReactModalAdapter)`
   &.ThreeColSliderModal__overlay {
-    ${tw`fixed inset-0 z-50`}
+    ${tw`fixed inset-0 min-h-screen`}
   }
   &.ThreeColSliderModal__content {
-    ${tw`xl:mx-auto m-4 sm:m-16 max-w-screen-2xl absolute inset-0 flex justify-center items-center rounded-lg bg-graybg outline-none border-solid border-purple-900 border-8`}
+    ${tw`lg:mx-auto m-8 sm:m-8  max-w-screen-2xl min-h-screen absolute inset-0 flex justify-center items-center rounded-lg bg-graybg outline-none border-solid border-purple-900 border-8`}
   }
   .content {
     ${tw`w-full lg:p-16`}
@@ -148,7 +148,7 @@ export default ({
 
   var [songInfo,setSongInfo] = React.useState([])
   function setModalPlaylist(type){
-    songFetch(type).then(toggleModal())
+    songFetch(type).then((gaming)=>toggleModal())
   }
 
   const songFetch = async (genres) => {
@@ -221,6 +221,8 @@ export default ({
     });
     console.log(songListInfo)
     setSongInfo(songListInfo)
+
+    return songListInfo
     
 
   }
