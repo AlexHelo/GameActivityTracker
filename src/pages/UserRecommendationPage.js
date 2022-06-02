@@ -9,9 +9,23 @@ import MainFeature2 from "components/features/TwoColSingleFeatureWithStats2.js";
 import TabGrid from "components/cards/ThreeColSlider";
 import Testimonial from "components/testimonials/ThreeColumnWithProfileImage";
 import DownloadApp from "components/cta/DownloadApp.js";
+import { SectionHeading } from "components/misc/Headings.js";
 import Footer from "components/footers/MiniCenteredFooter";
+import styled from "styled-components";
+import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
+
+import TwoColButton from "../components/features/DashedBorderSixFeatures"
 
 import goku from "images/7.png";
+
+const Container = tw.div`relative`;
+
+const ThreeColumnContainer = styled.div`
+  ${tw`flex flex-col items-center md:items-stretch md:flex-row flex-wrap md:justify-center max-w-screen-xl mx-auto py-20 md:py-24`}
+`;
+const Heading = tw(SectionHeading)`w-full`;
+
+const PrimaryButton = tw(PrimaryButtonBase)`px-24 py-10 mt-20 md:mt-10 text-6xl inline-block mx-auto md:mx-0`;
 
 export default () => {
   const Subheading = tw.span`tracking-wider text-sm font-medium`;
@@ -21,66 +35,87 @@ export default () => {
   const imageCss = tw`rounded-4xl`;
   //const cardInfo = 
   var userId= '76561198020735370'
-  var recentGames
-  var gamesInfo = []
+  var [recentGames,setRecentGames] = React.useState()
+  var [gamesInfo,setGamesInfo] = React.useState([])
   
-  var yourGames = []
-  RecentGames(userId).then((gamesinfo)=>AddYourGames(gamesinfo))
+  //var [yourGames,setYourGames] = React.useState([])
 
-  async function RecentGames(userKey) {
-    await fetch("http://localhost:3001/getrecentlyplayed?"+userKey)
-    .then(response => response.json())
-    .then(data =>  data.response)
-    .then(games => recentGames = games.games)
-    //console.log(recentGames)
-    recentGames.forEach(game => {
-      fetch("http://localhost:3001/getGameInfo?"+game.appid)
-      .then(response => response.json())
-      .then(check => gamesInfo.push(check[game.appid].data))
-      //.then((gamess)=> {return gamess})
-    });
-    console.log(gamesInfo)
-    return gamesInfo;
+  var [showRecommendations, setShowRecommendations] = React.useState(false)
+  
+  
+  function setRecomendations(){
+    //RecentGames(userId).then((gamesinfo)=>AddYourGames(gamesinfo))
+    yourRecentGames(userId).then((id)=>infoGames(id)).then((games)=>{
+      console.log(games)
+      AddYourGames(games)
+      setShowRecommendations(true);
+    })
+    //infoGames([569480,1905180])
   }
-
+  const yourRecentGames = async (userId) => {
+    let codeList=[]
+    //console.log(userId)
+    const response = await fetch("http://localhost:3001/getrecentlyplayed?"+userId)
+    const json = await response.json()
+    //console.log(json.response.games,json.response.games.length)
+    for(var i = 0; i < json.response.games.length; i++){
+        codeList.push(json.response.games[i].appid)
+    }
+    //console.log({codeList})
+    return codeList;
+   }
+  const infoGames = async (gameId) => {
+    let codeList=[]
+    //console.log(gameId,gameId.length)
+    for(var i = 0; i < gameId.length; i++){
+        const response = await fetch("http://localhost:3001/getGameInfo?"+gameId[i])
+        const json = await response.json()
+        //console.log(json)
+        codeList.push(json[gameId[i]].data)
+        //console.log({codeList})
+      }
+    return codeList;
+   }
   function AddYourGames(info){
-    console.log(info)
+    var gamesListInfo = []
     info.map(game => {
-      console.log("F")
-      yourGames.push({
+      //console.log(game.categories)
+      gamesListInfo.push({
         imageSrc: game.header_image,
         title: game.name,
         description: game.short_description,
-        genre : [game.categories[0],game.categories[1],game.categories[2]],
+        genre : [game.genres[0].description,game.genres[1].description],
         type	: game.type})
     });
+    //console.log(gamesListInfo)
+    setGamesInfo(gamesListInfo)
     
   }
 
-
-  //Test
   return (
     <AnimationRevealPage>
       <Hero
-        heading={<>Music recommendations based on your <HighlightedText>Gaming Preferences</HighlightedText></>}
-        description="With GameChord it is very easy to find the perfect music for every gaming moment."
-        imageSrc= {goku}
-        imageCss={imageCss}
-        imageDecoratorBlob={true}
-        primaryButtonText="Sign up"
-        primaryButtonUrl = "/Signup"
-        watchVideoButtonText="Why Music?"
         //watchVideoYoutubeUrl=""
       />
-      {/* TabGrid Component also accepts a tabs prop to customize the tabs and its content directly. Please open the TabGrid component file to see the structure of the tabs props.*/}
+      
+      {!showRecommendations && 
+      <Container>
+        <ThreeColumnContainer>
+          <Heading>Unveil your <span tw="text-purple-700">Recomendations</span></Heading>
+          <PrimaryButton onClick={()=>{
+            setRecomendations();
+            }}>Click me!</PrimaryButton>
+        </ThreeColumnContainer>
+      </Container>}
+      {showRecommendations && 
       <TabGrid
         heading={
           <>
-            Check your <HighlightedText>recommendations.</HighlightedText>
+            Check your Recent <HighlightedText>Games</HighlightedText>
           </>
         }
-        cards = {yourGames}
-      />
+        cards = {gamesInfo}
+      />}
       <Footer />
     </AnimationRevealPage>
   );
