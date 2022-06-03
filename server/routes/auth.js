@@ -9,6 +9,7 @@ var express = require('express')
 //   user back to this application at /auth/steam/return
 router.get('/steam',
   passport.authenticate('steam', { failureRedirect: '/' }),
+  //TODO Set localstorage
   function(req, res) {
   });
 
@@ -21,6 +22,7 @@ router.get('/steam/return',
   // Issue #37 - Workaround for Express router module stripping the full url, causing assertion to fail 
   passport.authenticate('steam', { failureRedirect: '/NotGamer' }),
   function(req, res) {
+    //TODO set Cookie
     res.redirect('/');
   });
 
