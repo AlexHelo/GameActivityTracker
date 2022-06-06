@@ -5,6 +5,7 @@ const cors = require("cors");
 const UserModel = require("./models/User");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const cookieParser = require("cookie-parser");
 
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
@@ -12,14 +13,14 @@ const findOrCreate = require("mongoose-findorcreate");
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
-  //, SteamStrategy = require('./lib/passport-steam/index').Strategy
   , SteamStrategy = require('passport-steam').Strategy
-  , authRoutes = require('./routes/auth')
   , request = require('request');
 
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+
 app.use(session({
   secret: 'Gamer',
   name: 'GameChord',
@@ -44,6 +45,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(obj, done) {
+
   done(null, obj);
 });
 
@@ -59,8 +61,7 @@ function(identifier, profile, done) {
     level: "user" }, 
   
 
-  process.nextTick(function () {
-    console.log(identifier)
+  process.nextTick(function () {  
     profile.identifier = identifier;
     return done(null, profile);
 
@@ -171,12 +172,29 @@ app.get('/logout', function(req, res){
 app.get('/auth/steam',
   passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
+    
     res.redirect('/');
   });
 
 app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   function(req, res) {
+
+    console.log("FINDING EMAIL: ")
+    console.log(req.cookies.email)
+    console.log("AND ADDING STEAMID:")
+    console.log(req.user._json.steamid)
+
+    app.put("/update", async (req, res) => {
+      const filter = {email: req.cookies.email}
+      const update= {SteamID: req.user._json.steamid}
+      try {
+        await UserModel.findByOneAndUpdate(filter, update);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
     res.redirect('http://localhost:3000/');
   });
 
@@ -273,6 +291,9 @@ app.get("/admin-query", async (req, res) => {
 });
 
 app.post("/hasAPI", async (req, res) => {
+
+
+
   const user = await User.findOne({ 
     email: req.body.email,
   })

@@ -112,6 +112,7 @@ const [password, setPassword] = useState('')
 
       // decoded jwt with unsafe frontend token
       const email = decoded.email
+      document.cookie = "email" + "=" + email
       const test = JSON.stringify({
         email
       })
