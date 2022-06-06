@@ -176,25 +176,22 @@ app.get('/auth/steam',
     res.redirect('/');
   });
 
-app.get('/auth/steam/return',
+  app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
-  function(req, res) {
+   async function(req, res) {
 
     console.log("FINDING EMAIL: ")
     console.log(req.cookies.email)
     console.log("AND ADDING STEAMID:")
     console.log(req.user._json.steamid)
 
-    app.put("/update", async (req, res) => {
-      const filter = {email: req.cookies.email}
-      const update= {SteamID: req.user._json.steamid}
-      try {
-        await UserModel.findByOneAndUpdate(filter, update);
-      } catch (err) {
-        console.log(err);
-      }
-    });
-
+    const filter = {email: req.cookies.email}
+    const update= {SteamID: req.user._json.steamid}
+    try {
+      await UserModel.findOneAndUpdate(filter, update);
+    } catch (err) {
+      console.log(err);
+    }
     res.redirect('http://localhost:3000/');
   });
 
@@ -297,7 +294,7 @@ app.post("/hasAPI", async (req, res) => {
   const user = await User.findOne({ 
     email: req.body.email,
   })
-  if(user.SteamID != null && user.SpotifyID != null){
+  if(user.SteamID != null ){
     return res.json({status: 'OK'})
   } else {
     return res.json({status: 'error'})
@@ -308,7 +305,7 @@ app.post("/hasAPI", async (req, res) => {
   const user = await User.findOne({ 
     email: req.body.email,
   })
-  if(user.SteamID != null && user.SpotifyID != null){
+  if(user.SteamID != null ){
     return res.json({status: 'OK'})
   } else {
     return res.json({status: 'error'})
@@ -319,7 +316,7 @@ app.post("/saveAPI", async (req, res) => {
   const user = await User.findOne({ 
     email: req.body.email,
   })
-  if(user.SteamID != null && user.SpotifyID != null){
+  if(user.SteamID != null ){
     return res.json({status: 'OK'})
   } else {
     return res.json({status: 'error'})
