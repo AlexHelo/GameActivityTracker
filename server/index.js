@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+const { Console } = require("console");
 
 var passport = require('passport')
   , util = require('util')
@@ -338,6 +339,18 @@ app.delete("/delete/:id", async (req, res) => {
 
   await UserModel.findByIdAndRemove(id).exec();
   res.send("deleted");
+});
+
+app.post("/getSteamId", async (req, res) => {
+  //console.log(req.body.email)
+  const user = await User.findOne({ 
+    email: req.body.email,
+  })
+  //console.log(user.SteamID)
+  if(user != null ){
+    res.send({steamId :user.SteamID});
+}
+
 });
 
 app.listen(3001, () => {

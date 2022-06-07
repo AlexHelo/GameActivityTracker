@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken'
 import logo from "../../images/logo.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
+import { useHistory } from "react-router-dom";
 
 const Header = tw.header`
   flex justify-between items-center
@@ -70,11 +71,24 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-
+const history = useHistory();
 
 const logout = () =>{
   localStorage.removeItem('token')
   window.location.reload(false);
+  deleteAllCookies()
+  history.replace("/dashboard")
+}
+
+function deleteAllCookies() {
+  var cookies = document.cookie.split(";");
+
+  for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=" + "";
+  }
 }
 
 var UserLoginLevel = "none"
@@ -96,7 +110,7 @@ switch(UserLoginLevel){
 
         <NavLink href="/SuperAdminPage">SuperAdmin Page</NavLink>
 
-        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="#"onClick={logout}>Sign Out</PrimaryLink>
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/dashboard"onClick={logout}>Sign Out</PrimaryLink>
       </NavLinks>
     ];
     break;

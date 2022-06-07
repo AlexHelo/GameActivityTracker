@@ -34,7 +34,7 @@ export default () => {
   const Description = tw.span`inline-block mt-8`;
   const imageCss = tw`rounded-4xl`;
   //const cardInfo = 
-  var userId= '76561198020735370'
+  var [userId, setUserId] = React.useState('76561198020735370')
   var [recentGames,setRecentGames] = React.useState()
   var [gamesInfo,setGamesInfo] = React.useState([])
   
@@ -42,11 +42,29 @@ export default () => {
 
   var [showRecommendations, setShowRecommendations] = React.useState(false)
   
-  
+  React.useEffect(function(){
+    const getSteamId = async () => {
+      var email = document.cookie.split("=")[1]
+      const response = await fetch("http://localhost:3001/getSteamId",{
+      method: "POST",
+      headers: {
+				'Content-Type': 'application/json',
+			},
+      body: JSON.stringify({
+				email
+    })})
+    var json = await response.json()
+    //console.log(json.steamId)
+    setUserId(json.steamId)
+    }
+    getSteamId()
+    
+  },[])
+
   function setRecomendations(){
     //RecentGames(userId).then((gamesinfo)=>AddYourGames(gamesinfo))
     yourRecentGames(userId).then((id)=>infoGames(id)).then((games)=>{
-      console.log(games)
+      //console.log(games)
       AddYourGames(games)
       setShowRecommendations(true);
     })
@@ -79,12 +97,12 @@ export default () => {
   function AddYourGames(info){
     var gamesListInfo = []
     info.map(game => {
-      //console.log(game.categories)
+      //console.log(game)
       gamesListInfo.push({
         imageSrc: game.header_image,
         title: game.name,
         description: game.short_description,
-        genre : [game.genres[0].description,game.genres[1].description],
+        genre : game.genres && game.genres.length > 1 ? [game.genres[0].description,game.genres[1].description] :  [game.categories[0].description, game.categories[1].description],
         type	: game.type})
     });
     //console.log(gamesListInfo)
