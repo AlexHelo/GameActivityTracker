@@ -157,11 +157,11 @@ return (
             <Heading>{<>Sign In To <HighlightedText>GameChord</HighlightedText></>}</Heading>
             <FormContainer>
               <Form onSubmit={loginUser}>
-                <Input type="email"  placeholder="Email"
+                <Input type="email"  placeholder="Email" id ="Email"
                     onChange={(event) => {
                       setEmail(event.target.value);
                     }} />
-                <Input type="password" placeholder="Password" onChange={(event) => {
+                <Input type="password" placeholder="Password" id ="Password" onChange={(event) => {
                   setPassword(event.target.value);
                 }}/>
                 <SubmitButton type="submit">

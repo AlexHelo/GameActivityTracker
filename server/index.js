@@ -181,10 +181,10 @@ app.get('/auth/steam',
   passport.authenticate('steam', { failureRedirect: '/' }),
    async function(req, res) {
 
-    console.log("FINDING EMAIL: ")
+    /*console.log("FINDING EMAIL: ")
     console.log(req.cookies.email)
     console.log("AND ADDING STEAMID:")
-    console.log(req.user._json.steamid)
+    console.log(req.user._json.steamid)*/
 
     const filter = {email: req.cookies.email}
     const update= {SteamID: req.user._json.steamid}
@@ -229,7 +229,8 @@ app.get('/gamer', ensureAuthenticated, function(req, res) {
 
 
 //Mongoose Connection
-mongoose.connect("mongodb://127.0.0.1:27017/test", { useNewUrlParser: true });
+//mongoose.connect("mongodb://127.0.0.1:27017/test", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admin:ibOMRT92kJ2TB4jJ@cluster0.ihcdn.mongodb.net/test", { useNewUrlParser: true });
 
 app.post("/user-create", async (req, res) => {
   try {

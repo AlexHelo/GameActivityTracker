@@ -167,7 +167,7 @@ export default ({
                 </SecondaryInfoContainer>
                 <Description>{card.description}</Description>
               </TextInfo>
-              <PrimaryButton onClick={()=>window.open(card.uri, '_blank')} 
+              <PrimaryButton onClick={()=>window.open(card.uri, '_blank')}
                 >{'Visit ' + card.title}</PrimaryButton>
             </Card>
           ))}

@@ -134,12 +134,14 @@ export default function Signup({
                 <Form onSubmit={registerUser}>
                   <Input
                     placeholder="Email"
+                    id = "Email"
                     onChange={(event) => {
                       setUserEmail(event.target.value);
                     }}
                   />
                   <Input
                     type="password"
+                    id = "Password"
                     placeholder="Password"
                     onChange={(event) => {
                       setPassword(event.target.value);

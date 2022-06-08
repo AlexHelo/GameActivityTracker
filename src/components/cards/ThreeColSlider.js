@@ -156,13 +156,13 @@ export default ({
       method: 'GET',
       headers: {
         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
-        'X-RapidAPI-Key': '57918a8e52mshacebd756eac2880p131186jsn8c25e555c929'
+        'X-RapidAPI-Key': '51edb9c84emsh4cc6bbbcad79edbp13549fjsnbc2447e0a80a'
       }
     }
     const url = `https://spotify23.p.rapidapi.com/search/?q=gaming%20${genres[0]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response = await fetch(url,options)
     const json = await response.json()
-    console.log(json.playlists.items[0].data.uri.split(":")[2])
+    //console.log(json.playlists.items[0].data.uri.split(":")[2])
     //console.log(json.playlists.items[0].data.images.items[0].sources[0].url)
     const url2 = `https://spotify23.p.rapidapi.com/search/?q=gaming%20${genres[1]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response2 = await fetch(url2,options)
@@ -250,7 +250,7 @@ export default ({
           <TabGrid
             heading={
               <>
-                Songs <HighlightedText>recommendations.</HighlightedText>
+                Song <HighlightedText>recommendations.</HighlightedText>
               </>
             }
             cards = {songInfo}
@@ -286,7 +286,7 @@ export default ({
                 </SecondaryInfoContainer>
                 <Description>{card.description}</Description>
               </TextInfo>
-              <PrimaryButton onClick={()=>{setModalPlaylist(card.genre)}}
+              <PrimaryButton onClick={()=>{setModalPlaylist(card.genre)}} id={index}
                 >Recommendation {card.title}</PrimaryButton>
             </Card>
           ))}

@@ -66,13 +66,10 @@ export default function ConnectionRequired ({
       {
         iconImageSrc: steamIconImageSrc,
         text: "Sign In With Steam",
-        url: "http://localhost:3001/auth/steam/"
+        url: "http://localhost:3001/auth/steam/",
+        id : "Steam"
       },
-      {
-        iconImageSrc: spotifyIconImageSrc,
-        text: "Sign In With Spotify",
-        url: "http://localhost:3001/auth/spotify/"
-      }
+      
     ],
     submitButtonText = "Sign In",
     SubmitButtonIcon = LoginIcon,
@@ -103,7 +100,7 @@ export default function ConnectionRequired ({
                 <FormContainer>
                   <SocialButtonsContainer>
                     {socialButtons.map((socialButton, index) => (
-                      <SocialButton key={index} href={socialButton.url}>
+                      <SocialButton key={index} href={socialButton.url} id={socialButton.id}>
                         <span className="iconContainer">
                           <img src={socialButton.iconImageSrc} className="icon" alt=""/>
                         </span>
