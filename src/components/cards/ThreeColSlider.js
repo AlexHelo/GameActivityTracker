@@ -162,7 +162,7 @@ export default ({
     const url = `https://spotify23.p.rapidapi.com/search/?q=gaming%20${genres[0]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response = await fetch(url,options)
     const json = await response.json()
-    console.log(json.playlists.items[0])
+    console.log(json.playlists.items[0].data.uri.split(":")[2])
     //console.log(json.playlists.items[0].data.images.items[0].sources[0].url)
     const url2 = `https://spotify23.p.rapidapi.com/search/?q=gaming%20${genres[1]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response2 = await fetch(url2,options)
@@ -171,7 +171,7 @@ export default ({
     const url3 = `https://spotify23.p.rapidapi.com/search/?q=${genres[0]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response3 = await fetch(url3,options)
     const json3 = await response3.json()
-    console.log(json.playlists.items[0])
+    //console.log(json.playlists.items[0])
     //console.log(json.playlists.items[0].data.images.items[0].sources[0].url)
     const url4 = `https://spotify23.p.rapidapi.com/search/?q=${genres[1]}&type=playlists&offset=0&limit=2&numberOfTopResults=2`;
     const response4 = await fetch(url4,options)
@@ -179,44 +179,49 @@ export default ({
     //console.log(json2.playlists.items)
 
     var songListInfo = []
+    var songUri = ''
     json.playlists.items.map(song => {
+      songUri = song.data.uri.split(":")[2]
       songListInfo.push({
         imageSrc: song.data.images.items[0].sources[0].url,
         title: song.data.name,
         description: song.data.description,
         genre : [genres[0],genres[1]],
         type	: 'Playlist',
-        URI : song.data.uri
+        uri : 'https://open.spotify.com/playlist/' + songUri,
       })
     });
     json2.playlists.items.map(song => {
+      songUri = song.data.uri.split(":")[2]
       songListInfo.push({
         imageSrc: song.data.images.items[0].sources[0].url,
         title: song.data.name,
         description: song.data.description,
         genre : [genres[0],genres[1]],
         type	: 'Playlist',
-        URI : song.data.uri,
+        uri : 'https://open.spotify.com/playlist/' + songUri,
       })
     });
     json3.playlists.items.map(song => {
+      songUri = song.data.uri.split(":")[2]
       songListInfo.push({
         imageSrc: song.data.images.items[0].sources[0].url,
         title: song.data.name,
         description: song.data.description,
         genre : [genres[0],genres[1]],
         type	: 'Playlist',
-        URI : song.data.uri
+        uri : 'https://open.spotify.com/playlist/' + songUri,
       })
     });
     json4.playlists.items.map(song => {
+      songUri = song.data.uri.split(":")[2]
       songListInfo.push({
         imageSrc: song.data.images.items[0].sources[0].url,
         title: song.data.name,
         description: song.data.description,
         genre : [genres[0],genres[1]],
         type	: 'Playlist',
-        URI : song.data.uri,
+        uri : 'https://open.spotify.com/playlist/' + songUri,
       })
     });
     console.log(songListInfo)
