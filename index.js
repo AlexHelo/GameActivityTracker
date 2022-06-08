@@ -11,6 +11,8 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { Console } = require("console");
 
+const path = require ('path');
+
 var passport = require('passport')
   , util = require('util')
   , session = require('express-session')
@@ -37,6 +39,18 @@ app.use(function(req, res, next) {
 });
 
 
+
+// Server Static Assets for Prod 
+if (process.env.NODE_ENV === 'production'){
+
+  //Static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
+}
 
 
 app.get('/auth/spotify', passport.authenticate('spotify'));
