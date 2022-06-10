@@ -99,11 +99,11 @@ export default () => {
     info.map(game => {
       //console.log(game)
       gamesListInfo.push({
-        imageSrc: game.header_image,
-        title: game.name,
-        description: game.short_description,
-        genre : game.genres && game.genres.length > 1 ? [game.genres[0].description,game.genres[1].description] :  [game.categories[0].description, game.categories[1].description],
-        type	: game.type})
+        imageSrc: game.header_image ? game.header_image : "",
+        title: game.name ? game.name : "",
+        description: game.short_description ? game.short_description : "",
+        genre : game.genres && game.genres.length > 1 ? [game.genres[0].description,game.genres[1].description] :  game.categories.length > 1 ? [game.categories[0].description, game.categories[1].description] : [game.categories[0].description] ,
+        type	: game.type ? game.type : ""})
     });
     //console.log(gamesListInfo)
     setGamesInfo(gamesListInfo)
