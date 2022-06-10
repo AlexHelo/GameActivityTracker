@@ -59,13 +59,9 @@ describe('User Login //', ()=>{
         } else {
             fail("No user found")
         }
-        console.log(user)
-        console.log(token)
-
         //Encontrar al usuario a travez de la token
         if (token){
           const userToken = jwt.decode(token)
-          console.log(userToken)
           expect(userToken.name).toBe("Test");
         }else {
             fail("No token");

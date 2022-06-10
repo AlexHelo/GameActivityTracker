@@ -106,7 +106,6 @@ app.get('/getglobalstats', function(req, res) {
 	var url = ' http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/?format=json&appid=' + qParams[0].name + '&count=1&name[0]=' + qParams[0].value;
 	request(url, function(err, response, body) {
 		if(!err && response.statusCode < 400) {
-			console.log(body);
 			res.send(body);
 		}
 	});	
@@ -149,7 +148,7 @@ passport.use(
 
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
-      console.log(profile)
+    
 
 
       User.findOrCreate({ email: profile.id, 

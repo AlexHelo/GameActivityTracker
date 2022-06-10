@@ -224,7 +224,6 @@ export default ({
         uri : 'https://open.spotify.com/playlist/' + songUri,
       })
     });
-    console.log(songListInfo)
     setSongInfo(songListInfo)
 
     return songListInfo

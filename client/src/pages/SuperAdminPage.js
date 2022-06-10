@@ -127,7 +127,6 @@ function AdminPage() {
         history.replace('/login')
       }
       if (user.level != "superadmin") {
-        console.log(user)
         history.replace('/dashboard')
       }
 
